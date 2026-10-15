@@ -71,6 +71,12 @@ body.light .theme-btn .tb-sun{display:block}
 body.light .theme-btn .tb-moon{display:none}
 @media(max-width:640px){.theme-btn{width:36px;height:36px}}
 @media(max-width:640px){.brand span.txt{display:none}}
+@media(max-width:640px){
+  .topbar-inner{padding:10px 14px;gap:10px}
+  .nav{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{flex:0 0 auto;padding:7px 10px;font-size:12.5px}
+}
 
 /* ============ 视图切换 ============ */
 .view{display:none}
@@ -176,10 +182,11 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;height:20px
 .bp-sec li{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:5px 0}
 .bp-sec li b{color:var(--ink);font-weight:600}
 .bp-todo{color:var(--gold)}
+.bp-ex{color:var(--steel);font-weight:600}
 .bp-out-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
 .bp-out-note{font-size:12px;color:var(--ink-soft);margin-top:14px;line-height:1.7}
 .bp-ok{color:var(--ok);font-weight:600}
-@media(max-width:640px){.bp-doc{padding:22px 18px}.bp-sec{grid-template-columns:1fr;gap:4px}}
+@media(max-width:640px){.bp-doc{padding:22px 18px}.bp-sec{grid-template-columns:1fr;gap:4px}.bp-doc-title{font-size:18px;line-height:1.5}.bp-doc-sub{font-size:12px}.bp-sec-no{font-size:17px}.bp-sec h3{font-size:16px}.bp-sec p,.bp-sec li{font-size:13.5px}}
 .profile-desc{margin-top:16px;padding:14px 18px;background:var(--bg-soft);border-left:3px solid var(--gold);border-radius:8px;font-size:14px;color:var(--ink)}
 .profile-desc b{color:var(--gold)}
 .cmp-table{margin-top:18px;width:100%;table-layout:fixed;border-collapse:collapse;font-size:13.5px}
@@ -1315,7 +1322,7 @@ const BP_INDUSTRY = {
   '通用': {size:'【待补充：所在行业的公开市场规模，建议引用国家统计局、行业协会或权威研报口径】', trend:'【待补充：行业当前的关键趋势与结构性变化】', ch:'内容营销 + 社群 + 投放测试'}
 };
 const BP_MODEL_HINT = {
-  '订阅制':'按月/年收固定费用，重视留存与续费，衡量指标是 MRR 与流失率',
+  '订阅制':'按月/年收固定费用，重视留存与续费，衡量指标是 MRR 与流失率。',
   'SaaS按量付费':'按用量计费，门槛低、随业务量增长，适合使用频次明确的场景',
   '电商':'卖货/卖课，靠毛利与复购，供应链和履约决定口碑',
   '广告 / 流量变现':'先做流量再变现，需要足够体量，广告单价受行业影响大',
@@ -1350,7 +1357,7 @@ function parseBPIdea(t){
   const um = t.match(/(?:为|给|面向|针对)([^，。,；;]{1,24}?)(?:提供|做|开发|打造|设计|解决)/);
   if(um) o.user = um[1].trim();
   const pm = t.match(/(?:提供|做|开发|打造|做一个|做一款|做一套|做一个面向)([^，。,；;]{2,60})/);
-  if(pm) o.prod = pm[1].trim();
+  if(pm) o.prod = pm[1].trim().replace(/^(一款|一个|一套|一种|个)\s*/, '');
   return o;
 }
 function buildBP(){
@@ -1364,58 +1371,88 @@ function buildBP(){
   const id = BP_INDUSTRY[ind] || BP_INDUSTRY['通用'];
   const userT = user || '<span class="bp-todo">【待补充：目标用户是谁，多大群体，愿意为什么付费】</span>';
   const prodT = prod || '<span class="bp-todo">【待补充：具体提供什么，和现有方案的差别在哪】</span>';
-  const userP = user || '【待补充：目标用户】';
-  const prodP = prod || '【待补充：核心产品/服务】';
+  const userP = user || '<span class="bp-todo">【待补充：目标用户】</span>';
+  const prodP = prod || '<span class="bp-todo">【待补充：核心产品/服务】</span>';
+  const posT = user ? ('为 '+user+'提供「'+(prod||'核心产品/服务')+'」，以「'+model+'」方式获取收入') : (idea.length>36 ? bpEsc(idea.slice(0,36))+'…' : bpEsc(idea));
+  const oldM = idea.match(/(?:替代|取代)([^，。,；;]{2,30})/);
+  const noM = idea.match(/(?:不用再|不用|告别|省去|减少)([^，。,；;]{2,40})/);
+  let pain = '';
+  if(oldM) pain += '依赖'+oldM[1].trim()+'、';
+  if(noM) pain += '还要'+noM[1].trim()+'、';
+  if(pain) pain = '目前'+pain+'耗时费力。';
+  if(!pain) pain = '现有方案效率低、成本高或体验差（<span class="bp-todo">请结合行业补充具体痛点</span>）。';
   const raiseT = raise ? (bpEsc(raise)+' 万元') : '<span class="bp-todo">【待补充：本轮融资金额】</span>';
-  const painT = '【待补充：用户现在用什么笨办法解决这个问题，痛在哪】';
-  const name = idea.slice(0,18) || '未命名项目';
+  const name = (prod ? ('「'+prod+'」商业计划书') : (idea.slice(0,18)||'未命名项目')) + '（骨架版）';
+  const FEAT = {
+    'SaaS企业服务':['自动开票 / 凭证生成','报表一键导出','多账套与角色权限'],
+    '消费品牌':['核心单品（示例方向）','复购与会员体系','内容种草素材库'],
+    '人工智能':['核心能力封装成产品','API / 接入层','行业场景模板'],
+    '跨境电商':['选品与上架工具','物流履约跟踪','多平台店铺管理'],
+    '教育培训':['核心课程 / 内容产品','学习进度管理','督学与打卡机制'],
+    '医疗健康':['核心服务 / 产品线','预约与档案管理','合规咨询通道'],
+    '本地生活':['核心服务 / 商品','在线预约 / 点单','会员与复购运营'],
+    '通用':['核心功能 1（示例方向）','核心功能 2','增值功能']
+  };
+  const feats = FEAT[ind] || FEAT['通用'];
+  const PRICE = {
+    '订阅制':'按月订阅，建议 99-399 元/月或按年 8-9 折（示例区间，请按成本与竞品校准）',
+    'SaaS按量付费':'按用量计费，设免费试用额度 + 阶梯价（示例思路，请按成本校准）',
+    '电商':'建议核心品 30-60% 毛利，组合装/会员提客单（示例思路，请按供应链核算）',
+    '广告 / 流量变现':'前期免费积累用户，靠广告与增值服务变现（示例思路，依赖流量体量）',
+    '按次服务费':'按单/按时收费，用标准化套餐降低交付成本（示例思路）',
+    '平台佣金 / 抽成':'双边抽佣，先用补贴或免费拉活跃供给端（示例思路）',
+    '其他':'请按成本、竞品与用户付费意愿三要素自定'
+  };
+  const PRICE_TXT = '<span class="bp-ex">'+ (PRICE[model]||PRICE['其他']) +'</span>';
+  const kpiT = (model==='订阅制'||model==='SaaS按量付费') ? '月度经常性收入 MRR 与月流失率' : '复购率 / 月订单数';
   const s = [];
   s.push({t:'执行摘要', h:`
-    <p>一句话讲清楚：<b>${bpEsc(idea.replace(/[。.]+$/,''))}</b>。</p>
-    <p>我们计划为 ${userT} 提供 ${prodT}，以「${model}」的方式获取收入。${userP==='【待补充：目标用户】'||prodP==='【待补充：核心产品/服务】'?'<span class="bp-todo">目标用户和产品这两块补上之后，摘要才真正立得住。</span>':'项目的切入点是：'+bpEsc(idea)}</p>
-    <p>本轮计划融资 ${raiseT}，用于把产品做到有人愿意付钱、再跑通第一条增长路径。</p>`});
+    <p><b>项目定位：</b>${posT}。</p>
+    <p><b>需求与痛点：</b>${pain}</p>
+    <p><b>解决方案：</b>以「${prod||'核心产品/服务'}」切入，用「${model}」模式获取收入，先服务好 ${userP}。</p>
+    <p><b>融资计划：</b>本轮拟融资 ${raiseT}，用于产品上线、首批客户验证与获客测试。</p>`});
   s.push({t:'公司概述', h:`
-    <p>定位：${bpEsc(idea)}。围绕这件事，把团队、产品、用户三件事一件一件做扎实。</p>
-    <p>使命：让「${bpEsc(name)}」这件事，比现有做法更快、更省、更省心。</p>
-    <p>现状：当前处于<span class="bp-todo">【待补充：构思 / 验证 / 已有原型 / 已有收入】</span>阶段。工商主体、注册信息：<span class="bp-todo">【待补充：主体名称、注册地、成立时间】</span>。</p>`});
+    <p><b>定位：</b>${posT}。</p>
+    <p><b>使命：</b>让「${prod||name}」这件事，从重复劳动变成一套顺手的工作流。</p>
+    <p><b>现状：</b>当前处于<span class="bp-todo">【待补充：构思 / 验证 / 已有原型 / 已有收入】</span>阶段；工商主体信息<span class="bp-todo">【待补充：名称、注册地】</span>。</p>`});
   s.push({t:'市场分析', h:`
     <p><b>行业规模：</b>${id.size}。${id.trend}。</p>
-    <p><b>目标用户：</b>${userP}。<span class="bp-todo">【待补充：这类用户大概有多少，增长快不快，怎么触达】</span></p>
-    <p><b>需求痛点：</b>${painT}</p>
-    <p><b>竞争格局：</b><span class="bp-todo">【待补充：列出 2-3 家直接竞品/替代方案，以及我们和它们差在哪、好在哪】</span></p>`});
+    <p><b>目标用户：</b>${userP}。<span class="bp-todo">【待补充：用户规模与触达方式】</span></p>
+    <p><b>需求痛点：</b>${pain}</p>
+    <p><b>竞争格局：</b><span class="bp-todo">【待补充：2-3 家直接竞品 / 替代方案，及与我们的差异】</span></p>`});
   s.push({t:'产品与服务', h:`
-    <p>产品：${prodP}。核心思路：把「${bpEsc(idea)}」拆成用户愿意付费的某一个点，先做深，再扩展。</p>
-    <ul><li><b>核心功能：</b><span class="bp-todo">【待补充：3-5 个用户真正会用的功能，按优先级排】</span></li>
-    <li><b>开发进度：</b><span class="bp-todo">【待补充：原型 / MVP / 已上线 / 迭代中】</span></li>
-    <li><b>下一步验证：</b><span class="bp-todo">【待补充：用哪个最小场景验证用户愿意付费】</span></li></ul>`});
+    <p><b>产品：</b>${prodP}。</p>
+    <p><b>核心功能（示例方向，请按实际取舍）：</b></p>
+    <ul><li>${feats[0]}</li><li>${feats[1]}</li><li>${feats[2]}</li></ul>
+    <p><b>开发进度：</b><span class="bp-todo">【待补充：原型 / MVP / 已上线】</span></p>
+    <p><b>验证路径：</b>先用最小场景（<span class="bp-todo">【待补充：哪一小块需求】</span>）验证用户愿意付费。</p>`});
   s.push({t:'商业模式', h:`
-    <p>变现方式：${model}。${BP_MODEL_HINT[model]||''}</p>
-    <ul><li><b>定价策略：</b><span class="bp-todo">【待补充：单价多少，对标谁，为什么用户觉得值】</span></li>
-    <li><b>单位经济：</b><span class="bp-todo">【待补充：获客成本（CAC）、客单价、生命周期价值（LTV），CAC 最好低于 LTV 的 1/3】</span></li>
-    <li><b>关键指标：</b><span class="bp-todo">【待补充：月收入 MRR / 复购率 / 流失率，选 1-2 个北极星指标】</span></li></ul>`});
+    <p><b>变现方式：</b>${model}。${BP_MODEL_HINT[model]||''}</p>
+    <ul><li><b>定价策略：</b>${PRICE_TXT}</li>
+    <li><b>单位经济：</b>重点盯三个数——获客成本 CAC、客单价、生命周期价值 LTV，目标 CAC &lt; LTV/3。</li>
+    <li><b>北极星指标：</b>${kpiT}（请按实际选定 1-2 个）。</li></ul>`});
   s.push({t:'营销与获客', h:`
-    <p>主要渠道建议：${id.ch}。先在一个渠道打透，验证能稳定带来付费用户，再复制到第二个。</p>
-    <ul><li><b>冷启动：</b>从 10-20 个种子用户开始，手动服务、认真听反馈，比投放更早验证。</li>
-    <li><b>内容：</b><span class="bp-todo">【待补充：围绕用户问题做什么内容，发在哪】</span></li>
-    <li><b>转化路径：</b><span class="bp-todo">【待补充：用户从第一次看到到付费，中间要经过哪几步】</span></li></ul>`});
+    <p><b>主要渠道：</b>${id.ch}。先在一个渠道打透，验证能稳定带来付费用户，再复制第二个。</p>
+    <ul><li><b>冷启动：</b>找 10-20 个种子用户手动服务，听反馈比投放更早验证。</li>
+    <li><b>内容主题（示例）：</b>围绕用户最痛的 3 个问题持续输出，发在${id.ch.indexOf('内容')>=0?'目标用户聚集的内容平台':'目标用户聚集的平台'}。</li>
+    <li><b>转化路径：</b><span class="bp-todo">【待补充：从第一次看到到付费的几步】</span></li></ul>`});
   s.push({t:'运营计划', h:`
-    <p>起步团队建议 1-3 人，先把「产品 - 获客 - 交付」转起来，再谈扩张。</p>
-    <ul><li><b>分工：</b><span class="bp-todo">【待补充：谁负责产品、谁负责市场、谁负责交付】</span></li>
-    <li><b>工具与流程：</b>飞书/Notion 管协作，<span class="bp-todo">【待补充：具体工具链与关键流程】</span></li>
-    <li><b>交付与供应链：</b><span class="bp-todo">【待补充：怎么保证交付质量，谁来做，周期多久】</span></li></ul>`});
+    <p><b>起步团队：</b>1-3 人，先跑通「产品 - 获客 - 交付」，再谈扩张。</p>
+    <ul><li><b>建议分工（示例安排）：</b>创始人负责产品与市场，技术可外包或由合伙人承担，交付初期亲力亲为。</li>
+    <li><b>工具链：</b>飞书 / Notion 管协作，<span class="bp-todo">【待补充：具体工具与关键流程】</span></li>
+    <li><b>交付质量：</b><span class="bp-todo">【待补充：交付标准、周期、责任人】</span></li></ul>`});
   s.push({t:'管理团队', h:`
-    <ul><li><b>创始人：</b><span class="bp-todo">【待补充：姓名、背景、为什么做这件事、相关经验】</span></li>
-    <li><b>核心成员：</b><span class="bp-todo">【待补充：各自负责什么】</span></li>
-    <li><b>顾问/外部支持：</b><span class="bp-todo">【待补充：能补哪块短板】</span></li></ul>`});
+    <ul><li><b>创始人：</b><span class="bp-todo">【待补充：背景、为什么做这件事、相关经验】</span></li>
+    <li><b>顾问 / 外部支持：</b><span class="bp-todo">【待补充：能补哪块短板】</span></li></ul>`});
   s.push({t:'财务计划', h:`
-    <p>以下为框架，具体数字请按自己项目填：</p>
-    <ul><li><b>启动成本：</b>开发 <span class="bp-todo">【金额】</span> + 人力 <span class="bp-todo">【金额】</span> + 市场 <span class="bp-todo">【金额】</span> + 合规/杂项 <span class="bp-todo">【金额】</span>。</li>
-    <li><b>收入预测：</b>按保守 / 中性 / 乐观三档分别估算未来 12 个月收入，<span class="bp-todo">【待补充：每档的收入与假设依据】</span></li>
-    <li><b>盈亏平衡：</b>当月收入覆盖当月支出，就是活下去的底线。<span class="bp-todo">【待补充：预计第几个月达成】</span></li></ul>`});
+    <p>以下为框架与示例区间，请按实际项目重算：</p>
+    <ul><li><b>启动成本（示例区间）：</b>产品开发 25-40 万 + 人力 15-25 万 + 市场获客 10-20 万 + 合规杂项 3-8 万。</li>
+    <li><b>收入预测：</b>按保守 / 中性 / 乐观三档，分别给出未来 12 个月收入与假设依据（<span class="bp-todo">【待补充：三档数字】</span>）。</li>
+    <li><b>盈亏平衡：</b>月收入覆盖月支出即为存活线，目标 <span class="bp-todo">【待补充：第几个月】</span> 达成。</li></ul>`});
   s.push({t:'融资需求', h:`
-    <p>本轮计划融资 ${raiseT}。</p>
-    <ul><li><b>资金用途（示例比例，请按实际调整）：</b>产品研发 40-50%，市场与获客 30-40%，运营与合规 10-20%。</li>
-    <li><b>融资里程碑：</b>钱到账后，做到什么结果才算对得起这轮融资？<span class="bp-todo">【待补充：1-2 个可量化的目标】</span></li>
+    <p><b>本轮融资：</b>${raiseT}。</p>
+    <ul><li><b>资金用途（示例比例）：</b>产品研发 40-50%，市场与获客 30-40%，运营与合规 10-20%。</li>
+    <li><b>融资里程碑（示例目标）：</b>3 个月内 MVP 上线并积累 20+ 种子用户；12 个月内付费用户达到 <span class="bp-todo">【目标数】</span>、月收入覆盖月支出。</li>
     <li><b>估值：</b><span class="bp-todo">【待补充：参考可比公司，或按未来 12 个月收入倍数估算】</span></li></ul>`});
   s.push({t:'风险分析', h:`
     <ul><li><b>市场风险：</b>需求可能没想象中那么急。<span class="bp-todo">【应对：先小范围验证付费意愿再投入】</span></li>
@@ -1424,8 +1461,8 @@ function buildBP(){
     <li><b>合规风险：</b>行业资质、数据、税务等。<span class="bp-todo">【应对：尽早咨询专业意见，别用侥幸换时间】</span></li></ul>`});
   s.push({t:'里程碑（未来 12 个月）', h:`
     <ul><li><b>第 1-3 个月：</b>验证——做出 MVP，找到 10-20 个愿意试用的种子用户。</li>
-    <li><b>第 4-6 个月：</b>上线——完成首批付费转化，跑通「获客-付费-交付」闭环。</li>
-    <li><b>第 7-9 个月：</b>放大——验证一个可复制的获客渠道，把付费用户做到 <span class="bp-todo">【目标数】</span>。</li>
+    <li><b>第 4-6 个月：</b>上线——完成首批付费转化，跑通「获客 - 付费 - 交付」闭环。</li>
+    <li><b>第 7-9 个月：</b>放大——验证一个可复制的获客渠道，付费用户达到 50-100 人（示例目标，按实际调整）。</li>
     <li><b>第 10-12 个月：</b>定型——单位经济转正，准备下一轮融资或实现自我造血。</li></ul>`});
   return {name, s, idea, ind, user, prod, model, raise};
 }
@@ -1438,7 +1475,7 @@ function renderBP(){
   out.innerHTML = (
     '<div class="bp-doc">'+
       '<div class="bp-doc-head">'+
-        '<div class="bp-doc-title">'+bpEsc(b.name)+' · 商业计划书（骨架版）</div>'+
+        '<div class="bp-doc-title">'+bpEsc(b.name)+'</div>'+
         '<div class="bp-doc-sub">生成时间：'+new Date().toLocaleDateString('zh-CN')+'　·　从描述中识别：行业='+bpEsc(b.ind)+' · 变现='+bpEsc(b.model)+' · 融资='+(b.raise?bpEsc(b.raise)+'万元':'未识别')+'<br>识别可能有偏差，金色【待补充】为必须补全的信息。数字请以官方口径核实，本页为演示生成，不构成任何投资依据。</div>'+
       '</div>'+secs+
     '</div>'+
@@ -1448,11 +1485,11 @@ function renderBP(){
     '</div>'+
     '<div class="bp-out-note">拿去跟人聊之前，把【待补充】填完，删掉这句说明。市场数字、财务预测都要能说出处。</div>'
   );
-  out.scrollIntoView({behavior:'smooth', block:'start'});
+  out.scrollIntoView({behavior:'auto', block:'start'});
 }
 function bpMD(){
   const b = buildBP();
-  const lines = ['# '+b.name+' · 商业计划书（骨架版）','','> 行业：'+b.ind+'　·　变现方式：'+b.model+'　·　生成日期：'+new Date().toLocaleDateString('zh-CN'),''];
+  const lines = ['# '+b.name,'','> 行业：'+b.ind+'　·　变现方式：'+b.model+'　·　生成日期：'+new Date().toLocaleDateString('zh-CN'),''];
   b.s.forEach((x,i)=>lines.push('## '+(i+1)+'. '+x.t, x.h.replace(/<br\s*\/?>/gi,'\n').replace(/<\/(p|li|ul|h3)>/gi,'\n').replace(/<[^>]+>/g,'').split('\n').map(s=>s.trim()).join('\n').replace(/&lt;|&gt;|&amp;/g, m=>({'&lt;':'<','&gt;':'>','&amp;':'&'}[m])).replace(/\n{3,}/g,'\n\n').trim(), ''));
   lines.push('---','*本文件由创业知识库 BP 生成器生成，请补全【待补充】项并核实所有数据后再使用。*');
   return lines.join('\n');
