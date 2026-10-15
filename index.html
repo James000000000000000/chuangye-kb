@@ -155,6 +155,31 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;height:20px
 .profile-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .profile-btn{padding:9px 18px;border-radius:999px;border:1.5px solid var(--line);background:transparent;font-size:14px;color:var(--ink-soft);transition:all .18s}
 .profile-btn.active{border-color:var(--gold);background:var(--gold);color:#0E1116;font-weight:600}
+.bp-form textarea,.bp-form input[type=text],.bp-form input[type=number],.bp-form select{width:100%;background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px;transition:border-color .15s;font-family:inherit}
+.bp-form textarea:focus,.bp-form input:focus,.bp-form select:focus{outline:none;border-color:var(--gold)}
+.bp-form select{appearance:none;-webkit-appearance:none;padding-right:34px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239A7B33' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer}
+.bp-form textarea{resize:vertical;min-height:84px;line-height:1.7}
+.bp-full{grid-column:1/-1}
+.bp-actions{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.bp-reset{background:transparent;border:1px solid var(--line);color:var(--ink-soft);border-radius:10px;padding:10px 20px;font-size:14px;font-weight:500;transition:border-color .15s,color .15s;font-family:inherit}
+.bp-reset:hover{border-color:var(--gold-soft);color:var(--ink)}
+.bp-doc{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px 40px}
+.bp-doc-head{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:6px}
+.bp-doc-title{font-family:var(--font-display);font-size:24px;font-weight:900;color:var(--ink);letter-spacing:1px}
+.bp-doc-sub{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.7}
+.bp-sec{display:grid;grid-template-columns:46px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.bp-sec:last-of-type{border-bottom:0}
+.bp-sec-no{font-family:var(--font-display);font-size:20px;font-weight:900;color:var(--gold);line-height:1.35}
+.bp-sec h3{font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.bp-sec p{font-size:14px;line-height:1.85;color:var(--ink-soft);margin:7px 0}
+.bp-sec ul{padding-left:20px;margin:7px 0}
+.bp-sec li{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:5px 0}
+.bp-sec li b{color:var(--ink);font-weight:600}
+.bp-todo{color:var(--gold)}
+.bp-out-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.bp-out-note{font-size:12px;color:var(--ink-soft);margin-top:14px;line-height:1.7}
+.bp-ok{color:var(--ok);font-weight:600}
+@media(max-width:640px){.bp-doc{padding:22px 18px}.bp-sec{grid-template-columns:1fr;gap:4px}}
 .profile-desc{margin-top:16px;padding:14px 18px;background:var(--bg-soft);border-left:3px solid var(--gold);border-radius:8px;font-size:14px;color:var(--ink)}
 .profile-desc b{color:var(--gold)}
 .cmp-table{margin-top:18px;width:100%;table-layout:fixed;border-collapse:collapse;font-size:13.5px}
@@ -345,6 +370,7 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;height:20px
       <a href="#/home" data-view="home">知识库</a>
       <a href="#/hot" data-view="hot">本周热推</a>
       <a href="#/tools" data-view="tools">工具箱</a>
+      <a href="#/bp" data-view="bp">BP生成</a>
       <a href="#/quiz" data-view="quiz">自测答疑</a>
       <button class="theme-btn" id="theme-btn" aria-label="切换主题">
         <svg class="tb-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
@@ -512,6 +538,39 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;height:20px
       </table>
       <p class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>区间为行业常见参考，消费、科技、生物医药等赛道差异很大，不构成定价依据。</p>
     </div>
+  </div>
+</section>
+
+<!-- ============ 视图：BP 生成器 ============ -->
+<section class="view" id="view-bp">
+  <div class="tools">
+    <div class="tools-head">
+      <h2>BP 生成器</h2>
+      <p>把想法写进去，出一份能拿去跟人聊的商业计划书。结构是通用的，数字和细节得自己核实补齐——它帮你搭骨架，不替你拍脑袋。</p>
+    </div>
+
+    <div class="tool">
+      <div class="tool-head">
+        <span class="tool-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h2"/></svg></span>
+        <div>
+          <h3>你的创业想法</h3>
+          <p>用一段话描述，系统会解析出行业、目标用户、产品、变现方式和融资金额，直接生成 BP。没提到的部分会标出来让你补。</p>
+        </div>
+      </div>
+      <div class="controls bp-form">
+        <div class="field bp-full">
+          <label>创业想法（一段话，说得越具体，BP 越像回事）</label>
+          <textarea id="bp-idea" rows="5" placeholder="例如：我打算为 3-20 人的小微企业做一款开票即记账的 SaaS，替代手工 Excel，月底不用再加班对账。按年订阅收费，打算融资 300 万。"></textarea>
+        </div>
+      </div>
+      <div class="bp-actions">
+        <button class="q-submit" id="bp-gen">生成商业 BP</button>
+        <button class="bp-reset" id="bp-demo">填个示例看看</button>
+        <button class="bp-reset" id="bp-reset">清空重写</button>
+      </div>
+    </div>
+
+    <div id="bp-out"></div>
   </div>
 </section>
 
@@ -1243,16 +1302,211 @@ document.addEventListener('click', function(e){
   if(e.target.closest && e.target.closest('#theme-btn')) toggleTheme();
 });
 themeInit();
+
+/* ============ BP 生成器 ============ */
+const BP_INDUSTRY = {
+  '消费品牌': {size:'中国社会消费品零售总额超 40 万亿元（国家统计局年度口径，引用前请按最新数据核实）', trend:'消费分级与国货品牌崛起是近几年的主线，细分品类和人群仍有可切入的空档', ch:'内容种草 + 电商平台'},
+  'SaaS企业服务': {size:'中国 SaaS 市场处于成长期，通用型与垂直型 SaaS 均有空间（第三方报告口径差异大，引用前请核实）', trend:'企业降本增效的诉求在推动软件订阅渗透，客户更看重 ROI 而非概念', ch:'SEO + 内容营销 + 社群/私域'},
+  '人工智能': {size:'中国人工智能核心产业规模已达数千亿元级别（工信部等公开口径，引用前请核实）', trend:'大模型与行业应用结合是当前主线，能落地的场景比模型本身更值钱', ch:'开发者社区 + 内容 + 行业合作'},
+  '跨境电商': {size:'中国跨境电商进出口规模超 2 万亿元（海关总署口径，引用前请按最新数据核实）', trend:'供应链优势叠加内容电商出海是主要机会，合规与履约是两道硬门槛', ch:'内容电商 + 独立站 + 供应链协同'},
+  '教育培训': {size:'中国教育市场规模达数万亿元（教育部及行业公开口径，引用前请核实）', trend:'政策合规是前提，细分职业教育与素质教育仍有真实需求', ch:'私域运营 + 内容 + 渠道分销'},
+  '医疗健康': {size:'中国大健康产业规模约 10 万亿元（行业公开口径，引用前请核实）', trend:'老龄化与健康消费双轮驱动，但资质、合规与信任是绕不开的门槛', ch:'合规渠道 + 专业背书 + 内容'},
+  '本地生活': {size:'本地生活服务市场规模达万亿级（行业公开口径，引用前请核实）', trend:'到店与到家场景的数字化改造还在早期，单城打透再复制是常见路径', ch:'本地流量 + 到店场景 + 社群'},
+  '通用': {size:'【待补充：所在行业的公开市场规模，建议引用国家统计局、行业协会或权威研报口径】', trend:'【待补充：行业当前的关键趋势与结构性变化】', ch:'内容营销 + 社群 + 投放测试'}
+};
+const BP_MODEL_HINT = {
+  '订阅制':'按月/年收固定费用，重视留存与续费，衡量指标是 MRR 与流失率',
+  'SaaS按量付费':'按用量计费，门槛低、随业务量增长，适合使用频次明确的场景',
+  '电商':'卖货/卖课，靠毛利与复购，供应链和履约决定口碑',
+  '广告 / 流量变现':'先做流量再变现，需要足够体量，广告单价受行业影响大',
+  '按次服务费':'按单收费，现金流直接，但难规模化，要靠标准化提效',
+  '平台佣金 / 抽成':'撮合两端收佣金，两头都要冷启动，双边网络效应是关键',
+  '其他':'【待补充：具体怎么收钱，收谁的，多久收一次】'
+};
+function bpEsc(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function parseBPIdea(t){
+  const o = {idea:t, ind:'通用', user:'', prod:'', model:'其他', raise:''};
+  const IND = [
+    ['消费品牌', /(消费|品牌|零售|门店|餐饮|茶饮|咖啡|美妆|零食|服装|家居|母婴)/],
+    ['SaaS企业服务', /(SaaS|软件|系统|工具|订阅|企业服务|to\s*b|b2b|后台|管理平台|自动化|财税|CRM|ERP|Sass)/i],
+    ['人工智能', /(AI|人工智能|大模型|模型|智能|机器学习|agent|助手|机器人)/i],
+    ['跨境电商', /(跨境|出海|亚马逊|TikTok|独立站|外贸|海外|Shopify|虾皮)/i],
+    ['教育培训', /(教育|培训|课程|学习|知识付费|考试|职业|辅导)/],
+    ['医疗健康', /(医疗|健康|医院|医生|药|体检|养老|康复)/],
+    ['本地生活', /(本地|到店|外卖|社区|家政|维修|跑腿|同城|宠物)/]
+  ];
+  for(const k of IND){ if(k[1].test(t)){ o.ind = k[0]; break; } }
+  const MOD = [
+    ['订阅制', /(订阅|月费|年费|会员|按年|按月)/i],
+    ['SaaS按量付费', /(按量|按用量)/],
+    ['电商', /(卖货|电商|商品|网店|带货|实物|零售)/],
+    ['广告 / 流量变现', /(广告|流量变现|流量|投放)/],
+    ['按次服务费', /(服务费|咨询费|按单|交付服务|接单|外包)/],
+    ['平台佣金 / 抽成', /(佣金|抽成|平台|撮合)/]
+  ];
+  for(const k of MOD){ if(k[1].test(t)){ o.model = k[0]; break; } }
+  const rm = t.match(/融资[^0-9]{0,8}(\d+(?:\.\d+)?)\s*(万|w|W)?/);
+  if(rm) o.raise = rm[1];
+  const um = t.match(/(?:为|给|面向|针对)([^，。,；;]{1,24}?)(?:提供|做|开发|打造|设计|解决)/);
+  if(um) o.user = um[1].trim();
+  const pm = t.match(/(?:提供|做|开发|打造|做一个|做一款|做一套|做一个面向)([^，。,；;]{2,60})/);
+  if(pm) o.prod = pm[1].trim();
+  return o;
+}
+function buildBP(){
+  const P = parseBPIdea($('#bp-idea').value.trim());
+  const idea = P.idea;
+  const ind = P.ind;
+  const user = P.user;
+  const prod = P.prod;
+  const model = P.model;
+  const raise = P.raise;
+  const id = BP_INDUSTRY[ind] || BP_INDUSTRY['通用'];
+  const userT = user || '<span class="bp-todo">【待补充：目标用户是谁，多大群体，愿意为什么付费】</span>';
+  const prodT = prod || '<span class="bp-todo">【待补充：具体提供什么，和现有方案的差别在哪】</span>';
+  const userP = user || '【待补充：目标用户】';
+  const prodP = prod || '【待补充：核心产品/服务】';
+  const raiseT = raise ? (bpEsc(raise)+' 万元') : '<span class="bp-todo">【待补充：本轮融资金额】</span>';
+  const painT = '【待补充：用户现在用什么笨办法解决这个问题，痛在哪】';
+  const name = idea.slice(0,18) || '未命名项目';
+  const s = [];
+  s.push({t:'执行摘要', h:`
+    <p>一句话讲清楚：<b>${bpEsc(idea.replace(/[。.]+$/,''))}</b>。</p>
+    <p>我们计划为 ${userT} 提供 ${prodT}，以「${model}」的方式获取收入。${userP==='【待补充：目标用户】'||prodP==='【待补充：核心产品/服务】'?'<span class="bp-todo">目标用户和产品这两块补上之后，摘要才真正立得住。</span>':'项目的切入点是：'+bpEsc(idea)}</p>
+    <p>本轮计划融资 ${raiseT}，用于把产品做到有人愿意付钱、再跑通第一条增长路径。</p>`});
+  s.push({t:'公司概述', h:`
+    <p>定位：${bpEsc(idea)}。围绕这件事，把团队、产品、用户三件事一件一件做扎实。</p>
+    <p>使命：让「${bpEsc(name)}」这件事，比现有做法更快、更省、更省心。</p>
+    <p>现状：当前处于<span class="bp-todo">【待补充：构思 / 验证 / 已有原型 / 已有收入】</span>阶段。工商主体、注册信息：<span class="bp-todo">【待补充：主体名称、注册地、成立时间】</span>。</p>`});
+  s.push({t:'市场分析', h:`
+    <p><b>行业规模：</b>${id.size}。${id.trend}。</p>
+    <p><b>目标用户：</b>${userP}。<span class="bp-todo">【待补充：这类用户大概有多少，增长快不快，怎么触达】</span></p>
+    <p><b>需求痛点：</b>${painT}</p>
+    <p><b>竞争格局：</b><span class="bp-todo">【待补充：列出 2-3 家直接竞品/替代方案，以及我们和它们差在哪、好在哪】</span></p>`});
+  s.push({t:'产品与服务', h:`
+    <p>产品：${prodP}。核心思路：把「${bpEsc(idea)}」拆成用户愿意付费的某一个点，先做深，再扩展。</p>
+    <ul><li><b>核心功能：</b><span class="bp-todo">【待补充：3-5 个用户真正会用的功能，按优先级排】</span></li>
+    <li><b>开发进度：</b><span class="bp-todo">【待补充：原型 / MVP / 已上线 / 迭代中】</span></li>
+    <li><b>下一步验证：</b><span class="bp-todo">【待补充：用哪个最小场景验证用户愿意付费】</span></li></ul>`});
+  s.push({t:'商业模式', h:`
+    <p>变现方式：${model}。${BP_MODEL_HINT[model]||''}</p>
+    <ul><li><b>定价策略：</b><span class="bp-todo">【待补充：单价多少，对标谁，为什么用户觉得值】</span></li>
+    <li><b>单位经济：</b><span class="bp-todo">【待补充：获客成本（CAC）、客单价、生命周期价值（LTV），CAC 最好低于 LTV 的 1/3】</span></li>
+    <li><b>关键指标：</b><span class="bp-todo">【待补充：月收入 MRR / 复购率 / 流失率，选 1-2 个北极星指标】</span></li></ul>`});
+  s.push({t:'营销与获客', h:`
+    <p>主要渠道建议：${id.ch}。先在一个渠道打透，验证能稳定带来付费用户，再复制到第二个。</p>
+    <ul><li><b>冷启动：</b>从 10-20 个种子用户开始，手动服务、认真听反馈，比投放更早验证。</li>
+    <li><b>内容：</b><span class="bp-todo">【待补充：围绕用户问题做什么内容，发在哪】</span></li>
+    <li><b>转化路径：</b><span class="bp-todo">【待补充：用户从第一次看到到付费，中间要经过哪几步】</span></li></ul>`});
+  s.push({t:'运营计划', h:`
+    <p>起步团队建议 1-3 人，先把「产品 - 获客 - 交付」转起来，再谈扩张。</p>
+    <ul><li><b>分工：</b><span class="bp-todo">【待补充：谁负责产品、谁负责市场、谁负责交付】</span></li>
+    <li><b>工具与流程：</b>飞书/Notion 管协作，<span class="bp-todo">【待补充：具体工具链与关键流程】</span></li>
+    <li><b>交付与供应链：</b><span class="bp-todo">【待补充：怎么保证交付质量，谁来做，周期多久】</span></li></ul>`});
+  s.push({t:'管理团队', h:`
+    <ul><li><b>创始人：</b><span class="bp-todo">【待补充：姓名、背景、为什么做这件事、相关经验】</span></li>
+    <li><b>核心成员：</b><span class="bp-todo">【待补充：各自负责什么】</span></li>
+    <li><b>顾问/外部支持：</b><span class="bp-todo">【待补充：能补哪块短板】</span></li></ul>`});
+  s.push({t:'财务计划', h:`
+    <p>以下为框架，具体数字请按自己项目填：</p>
+    <ul><li><b>启动成本：</b>开发 <span class="bp-todo">【金额】</span> + 人力 <span class="bp-todo">【金额】</span> + 市场 <span class="bp-todo">【金额】</span> + 合规/杂项 <span class="bp-todo">【金额】</span>。</li>
+    <li><b>收入预测：</b>按保守 / 中性 / 乐观三档分别估算未来 12 个月收入，<span class="bp-todo">【待补充：每档的收入与假设依据】</span></li>
+    <li><b>盈亏平衡：</b>当月收入覆盖当月支出，就是活下去的底线。<span class="bp-todo">【待补充：预计第几个月达成】</span></li></ul>`});
+  s.push({t:'融资需求', h:`
+    <p>本轮计划融资 ${raiseT}。</p>
+    <ul><li><b>资金用途（示例比例，请按实际调整）：</b>产品研发 40-50%，市场与获客 30-40%，运营与合规 10-20%。</li>
+    <li><b>融资里程碑：</b>钱到账后，做到什么结果才算对得起这轮融资？<span class="bp-todo">【待补充：1-2 个可量化的目标】</span></li>
+    <li><b>估值：</b><span class="bp-todo">【待补充：参考可比公司，或按未来 12 个月收入倍数估算】</span></li></ul>`});
+  s.push({t:'风险分析', h:`
+    <ul><li><b>市场风险：</b>需求可能没想象中那么急。<span class="bp-todo">【应对：先小范围验证付费意愿再投入】</span></li>
+    <li><b>执行风险：</b>一个人或小团队扛不住节奏。<span class="bp-todo">【应对：砍功能、聚焦单点，先跑通再扩】</span></li>
+    <li><b>竞争风险：</b>巨头或同行跟进。<span class="bp-todo">【应对：守住细分，比快比专不比大】</span></li>
+    <li><b>合规风险：</b>行业资质、数据、税务等。<span class="bp-todo">【应对：尽早咨询专业意见，别用侥幸换时间】</span></li></ul>`});
+  s.push({t:'里程碑（未来 12 个月）', h:`
+    <ul><li><b>第 1-3 个月：</b>验证——做出 MVP，找到 10-20 个愿意试用的种子用户。</li>
+    <li><b>第 4-6 个月：</b>上线——完成首批付费转化，跑通「获客-付费-交付」闭环。</li>
+    <li><b>第 7-9 个月：</b>放大——验证一个可复制的获客渠道，把付费用户做到 <span class="bp-todo">【目标数】</span>。</li>
+    <li><b>第 10-12 个月：</b>定型——单位经济转正，准备下一轮融资或实现自我造血。</li></ul>`});
+  return {name, s, idea, ind, user, prod, model, raise};
+}
+function renderBP(){
+  const out = $('#bp-out');
+  const b = buildBP();
+  const secs = b.s.map((x,i)=>(
+    '<div class="bp-sec"><div class="bp-sec-no">'+(i+1<10?'0':'')+(i+1)+'</div><div><h3>'+x.t+'</h3>'+x.h+'</div></div>'
+  )).join('');
+  out.innerHTML = (
+    '<div class="bp-doc">'+
+      '<div class="bp-doc-head">'+
+        '<div class="bp-doc-title">'+bpEsc(b.name)+' · 商业计划书（骨架版）</div>'+
+        '<div class="bp-doc-sub">生成时间：'+new Date().toLocaleDateString('zh-CN')+'　·　从描述中识别：行业='+bpEsc(b.ind)+' · 变现='+bpEsc(b.model)+' · 融资='+(b.raise?bpEsc(b.raise)+'万元':'未识别')+'<br>识别可能有偏差，金色【待补充】为必须补全的信息。数字请以官方口径核实，本页为演示生成，不构成任何投资依据。</div>'+
+      '</div>'+secs+
+    '</div>'+
+    '<div class="bp-out-actions">'+
+      '<button class="q-submit" id="bp-dl">下载 Markdown</button>'+
+      '<button class="bp-reset" id="bp-copy">复制全文</button>'+
+    '</div>'+
+    '<div class="bp-out-note">拿去跟人聊之前，把【待补充】填完，删掉这句说明。市场数字、财务预测都要能说出处。</div>'
+  );
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function bpMD(){
+  const b = buildBP();
+  const lines = ['# '+b.name+' · 商业计划书（骨架版）','','> 行业：'+b.ind+'　·　变现方式：'+b.model+'　·　生成日期：'+new Date().toLocaleDateString('zh-CN'),''];
+  b.s.forEach((x,i)=>lines.push('## '+(i+1)+'. '+x.t, x.h.replace(/<br\s*\/?>/gi,'\n').replace(/<\/(p|li|ul|h3)>/gi,'\n').replace(/<[^>]+>/g,'').split('\n').map(s=>s.trim()).join('\n').replace(/&lt;|&gt;|&amp;/g, m=>({'&lt;':'<','&gt;':'>','&amp;':'&'}[m])).replace(/\n{3,}/g,'\n\n').trim(), ''));
+  lines.push('---','*本文件由创业知识库 BP 生成器生成，请补全【待补充】项并核实所有数据后再使用。*');
+  return lines.join('\n');
+}
+function bpDownload(){
+  const b = buildBP();
+  const blob = new Blob([bpMD()], {type:'text/markdown;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (b.name||'商业计划书') + '.md';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function bpCopy(){
+  const md = bpMD();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(md).then(()=>{ $('#bp-out').insertAdjacentHTML('beforeend','<div class="bp-out-note bp-ok">已复制到剪贴板。</div>'); }).catch(()=>{ $('#bp-out').insertAdjacentHTML('beforeend','<div class="bp-out-note">复制失败，请用「下载 Markdown」。</div>'); });
+  }else{
+    $('#bp-out').insertAdjacentHTML('beforeend','<div class="bp-out-note">复制失败，请用「下载 Markdown」。</div>');
+  }
+}
+document.addEventListener('click', function(e){
+  const t = e.target.closest ? e.target.closest('#bp-gen, #bp-reset, #bp-dl, #bp-copy, #bp-demo') : null;
+  if(!t) return;
+  if(t.id==='bp-gen'){
+    if(!$('#bp-idea').value.trim()){
+      $('#bp-out').innerHTML = '<div class="bp-out-note">先把想法写一句——「做什么」是整份 BP 的地基，其他都可以后面补。</div>';
+      $('#bp-idea').focus();
+      return;
+    }
+    renderBP();
+  }else if(t.id==='bp-reset'){
+    $('#bp-idea').value='';
+    $('#bp-out').innerHTML='';
+    $('#bp-idea').focus();
+  }else if(t.id==='bp-demo'){
+    $('#bp-idea').value='我打算为 3-20 人的小微企业做一款开票即记账的 SaaS，替代手工 Excel，月底不用再加班对账。按年订阅收费，目标融资 300 万。';
+    renderBP();
+  }else if(t.id==='bp-dl') bpDownload();
+  else if(t.id==='bp-copy') bpCopy();
+});
 function route(){
   const h = location.hash || '#/home';
   let view = 'home';
   if(h.indexOf('reading') >= 0) view = 'reading';
   else if(h.indexOf('tools') >= 0) view = 'tools';
+  else if(h.indexOf('bp') >= 0) view = 'bp';
   else if(h.indexOf('quiz') >= 0) view = 'quiz';
   else if(h.indexOf('hot') >= 0) view = 'hot';
   state.view = view;
   $('#view-home').classList.toggle('active', view==='home');
   $('#view-tools').classList.toggle('active', view==='tools');
+  $('#view-bp').classList.toggle('active', view==='bp');
   $('#view-quiz').classList.toggle('active', view==='quiz');
   $('#view-hot').classList.toggle('active', view==='hot');
   $('#view-reading').classList.toggle('active', view==='reading');
