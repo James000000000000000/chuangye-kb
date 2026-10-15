@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创业知识库</title>
+<meta name="description" content="创业知识库：注册、股权、融资、现金流、增长与退出，70 词条，附现金跑道、股权稀释、融资轮次三个工具。">
+<link rel="icon" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"%3E%3Crect width="32" height="32" rx="7" fill="%23C9A45C"/%3E%3Ctext x="16" y="22.5" font-size="16" text-anchor="middle" fill="%230E1116" font-family="Songti SC,serif"%3E创%3C/text%3E%3C/svg%3E'>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;600&display=swap">
+<style>
+/* ============ 设计令牌 ============ */
+:root{
+  --bg:#0E1116;
+  --bg-soft:#131823;
+  --panel:#171D27;
+  --panel-2:#1E2530;
+  --ink:#E9E6DE;
+  --ink-soft:#8D97A5;
+  --line:#26303E;
+  --gold:#C9A45C;
+  --gold-soft:#33291A;
+  --ok:#6FA98B;
+  --steel:#7C9FBF;
+  --danger:#C96A5C;
+  --font-display:"Noto Serif SC","Songti SC","STSong",serif;
+  --font-body:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --shadow:0 16px 44px rgba(0,0,0,.42);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;font-size:15px}
+h1,h2,h3,.display{font-family:var(--font-display)}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+svg{flex:none}
+
+/* ============ 顶栏 ============ */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(14,17,22,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:18.5px;letter-spacing:1px;color:var(--ink)}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--gold);display:flex;align-items:center;justify-content:center;color:#0E1116}
+.nav{display:flex;gap:4px}
+.nav a{padding:8px 16px;border-radius:999px;font-size:14.5px;color:var(--ink-soft);transition:background .18s,color .18s}
+.nav a:hover{color:var(--ink);background:var(--panel-2)}
+.nav a.active{background:var(--gold);color:#0E1116;font-weight:600}
+@media(max-width:640px){.brand span.txt{display:none}}
+
+/* ============ 视图切换 ============ */
+.view{display:none}
+.view.active{display:block}
+
+/* ============ Hero ============ */
+.hero{max-width:1180px;margin:0 auto;padding:54px 24px 42px;display:grid;grid-template-columns:1.22fr .78fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(32px,4.4vw,50px);font-weight:900;line-height:1.24;letter-spacing:1px;color:var(--ink)}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{margin-top:16px;color:var(--ink-soft);font-size:15.5px;max-width:46ch}
+.searchbox{margin-top:30px;display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:7px 8px 7px 18px;max-width:560px}
+.searchbox:focus-within{border-color:var(--gold);box-shadow:var(--shadow)}
+.searchbox input{flex:1;border:0;outline:0;background:none;font-size:15px;color:var(--ink);padding:8px 0;font-family:inherit;min-width:0}
+.searchbox input::placeholder{color:#5C6775}
+.searchbox .go{display:flex;align-items:center;gap:6px;background:var(--gold);color:#0E1116;border-radius:10px;padding:9px 16px;font-size:14px;font-weight:600;transition:background .18s}
+.searchbox .go:hover{background:#DDBC7C}
+.stat-row{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.stat{display:flex;align-items:baseline;gap:9px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 16px}
+.stat b{font-family:var(--font-display);font-size:22px;color:var(--gold);font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--ink-soft)}
+.hero-motif{justify-self:end;width:100%;max-width:520px}
+.hero-motif svg{width:100%;height:auto;display:block}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:38px}
+  .hero-motif{display:none}
+}
+
+/* ============ 词条库 ============ */
+.kb{max-width:1180px;margin:0 auto;padding:6px 24px 72px;display:grid;grid-template-columns:236px 1fr;gap:38px;align-items:start}
+.kb-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.kb-head h2{font-size:23px;font-weight:700;color:var(--ink)}
+.kb-head .cnt{font-size:13px;color:var(--ink-soft)}
+.cat-rail{position:sticky;top:86px;display:flex;flex-direction:column;gap:3px}
+.cat-btn{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;font-size:14.5px;color:var(--ink-soft);border:1px solid transparent;text-align:left;transition:background .18s,color .18s,border-color .18s}
+.cat-btn:hover{background:var(--panel);color:var(--ink)}
+.cat-btn.active{background:var(--panel);color:var(--ink);border-color:var(--line);font-weight:600}
+.cat-btn .cnt{margin-left:auto;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.cat-btn svg{color:var(--gold)}
+.cat-btn.active svg{color:var(--gold)}
+.entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.entry-card{display:flex;flex-direction:column;gap:7px;background:var(--panel);border:1px solid var(--line);border-left:3px solid #3A4646;border-radius:10px;padding:16px 18px;text-align:left;transition:border-color .18s,transform .18s,box-shadow .18s;position:relative;overflow:hidden}
+.entry-card:hover{border-left-color:var(--gold);border-color:#39465A;transform:translateY(-2px);box-shadow:var(--shadow)}
+.card-top{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)}
+.card-top .cat-chip{background:var(--gold-soft);color:var(--gold);border-radius:999px;padding:1px 10px;font-weight:600}
+.card-top .no{font-variant-numeric:tabular-nums;opacity:.6}
+.card-title{display:block;font-family:var(--font-display);font-size:16.5px;font-weight:700;color:var(--ink);line-height:1.45}
+.card-desc{display:block;font-size:13.5px;color:var(--ink-soft);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.entry-card .arr{position:absolute;right:14px;bottom:12px;color:var(--gold);opacity:0;transform:translateX(-6px);transition:opacity .18s,transform .18s}
+.entry-card:hover .arr{opacity:1;transform:none}
+@media(max-width:900px){
+  .kb{grid-template-columns:1fr}
+  .cat-rail{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+  .cat-btn{white-space:nowrap;background:var(--panel);border-color:var(--line)}
+  .cat-btn .cnt{display:none}
+}
+@media(max-width:680px){.entry-grid{grid-template-columns:1fr}}
+.empty{grid-column:1/-1;text-align:center;padding:56px 20px;color:var(--ink-soft)}
+.empty svg{margin:0 auto 14px;display:block;color:var(--gold)}
+.empty b{display:block;font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:4px}
+
+/* ============ 工具箱 ============ */
+.tools{max-width:980px;margin:0 auto;padding:44px 24px 72px}
+.tools-head{text-align:center;margin-bottom:30px}
+.tools-head h2{font-size:clamp(26px,3vw,34px);font-weight:900;color:var(--ink)}
+.tools-head p{margin-top:8px;color:var(--ink-soft);font-size:14.5px}
+.tool{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;margin-bottom:26px}
+.tool-head{display:flex;gap:14px;align-items:flex-start}
+.tool-ico{width:42px;height:42px;border-radius:12px;background:var(--gold);color:#0E1116;display:flex;align-items:center;justify-content:center}
+.tool-head h3{font-size:20px;font-weight:700;color:var(--ink)}
+.tool-head p{font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;margin-top:22px}
+.field label{font-size:13px;color:var(--ink-soft);display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.field output{font-family:var(--font-display);font-weight:700;color:var(--gold);font-size:16px;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;height:20px;background:transparent}
+.result-stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+.rs{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:150px;flex:1}
+.rs b{font-family:var(--font-display);font-size:21px;color:var(--gold);display:block;font-variant-numeric:tabular-nums}
+.rs span{font-size:12px;color:var(--ink-soft)}
+.chart{margin-top:18px;height:330px}
+.chart-fallback{display:none;margin-top:18px;padding:18px;border:1px dashed var(--line);border-radius:10px;color:var(--ink-soft);font-size:13px;text-align:center}
+.note{font-size:12.5px;color:var(--ink-soft);margin-top:16px;display:flex;gap:8px;align-items:flex-start}
+.profile-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.profile-btn{padding:9px 18px;border-radius:999px;border:1.5px solid var(--line);background:transparent;font-size:14px;color:var(--ink-soft);transition:all .18s}
+.profile-btn.active{border-color:var(--gold);background:var(--gold);color:#0E1116;font-weight:600}
+.profile-desc{margin-top:16px;padding:14px 18px;background:var(--bg-soft);border-left:3px solid var(--gold);border-radius:8px;font-size:14px;color:var(--ink)}
+.profile-desc b{color:var(--gold)}
+.cmp-table{margin-top:18px;width:100%;table-layout:fixed;border-collapse:collapse;font-size:13.5px}
+.cmp-table th,.cmp-table td{border-bottom:1px solid var(--line);padding:11px 10px;text-align:left;vertical-align:top;line-height:1.6}
+.cmp-table th{color:var(--gold);font-weight:600;font-size:12.5px;letter-spacing:1px;white-space:nowrap}
+.cmp-table td{color:var(--ink-soft)}
+.cmp-table td:first-child{color:var(--ink);font-weight:600;font-family:var(--font-display)}
+@media(max-width:680px){.tools{padding:32px 16px 56px}.tool{padding:20px}}
+
+/* ============ 详情弹层 ============ */
+.modal-backdrop{position:fixed;inset:0;background:rgba(5,8,12,.72);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-backdrop.open{opacity:1;pointer-events:auto}
+.modal{background:var(--panel);border:1px solid #33405A;border-radius:18px;max-width:660px;width:100%;max-height:86vh;overflow-y:auto;padding:36px;position:relative;transform:translateY(14px);transition:transform .2s;box-shadow:0 26px 70px rgba(0,0,0,.5)}
+.modal-backdrop.open .modal{transform:none}
+.modal .close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);transition:background .18s,color .18s}
+.modal .close:hover{background:var(--panel-2);color:var(--ink)}
+.modal-cat{display:inline-flex;align-items:center;gap:7px;background:var(--gold-soft);color:var(--gold);border-radius:999px;padding:3px 12px;font-size:12.5px;font-weight:600}
+.modal h2{font-size:26px;font-weight:900;color:var(--ink);margin-top:12px;letter-spacing:.5px}
+.modal .def{margin-top:10px;font-size:15.5px;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:16px}
+.modal h4{display:flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--gold);margin:20px 0 10px;letter-spacing:1px}
+.modal h4::after{content:"";flex:1;height:1px;background:var(--line)}
+.modal .body{font-size:14.5px;color:var(--ink);line-height:1.9}
+.modal ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.modal li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink)}
+.modal li svg{margin-top:4px}
+.modal li.myth svg{color:var(--danger)}
+.modal li.point svg{color:var(--ok)}
+.rel-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.rel-chips button{padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg-soft);font-size:13px;color:var(--ink-soft);transition:all .18s}
+.rel-chips button:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+@media(max-width:560px){.modal{padding:26px 20px}}
+
+/* ============ 页脚 ============ */
+.foot{max-width:1180px;margin:0 auto;padding:26px 24px 44px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;line-height:1.7}
+.foot .warn{color:var(--danger)}
+</style>
+</head>
+<body>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#/home" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 13 13l-4.5 2.5L11 11z"/><circle cx="12" cy="12" r="1"/></svg>
+      </span>
+      <span class="txt">创业知识库</span>
+    </a>
+    <nav class="nav">
+      <a href="#/home" data-view="home">知识库</a>
+      <a href="#/tools" data-view="tools">工具箱</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ 视图：知识库 ============ -->
+<section class="view" id="view-home">
+  <div class="hero">
+    <div>
+      <h1>创业是一场持久战，<em>先懂规则</em></h1>
+      <p class="hero-sub">公司注册、股权分配、烧钱率、增长、退出——这些坑大多有人替你踩过了。70 个词条，走一步查一步。</p>
+      <div class="searchbox">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C9A45C" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search-input" placeholder="搜索词条，如：股权稀释、烧钱率、对赌、期权池…" aria-label="搜索词条">
+        <button class="go" id="search-go">检索</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b id="stat-entries">–</b><span>条创业词条</span></div>
+        <div class="stat"><b id="stat-cats">–</b><span>大主题分类</span></div>
+        <div class="stat"><b id="stat-tools">3</b><span>个实用工具</span></div>
+      </div>
+    </div>
+    <div class="hero-motif" aria-hidden="true">
+      <svg viewBox="0 0 520 230" fill="none">
+        <g stroke="#26303E" stroke-width="1" stroke-dasharray="1 7">
+          <line x1="0" y1="40" x2="520" y2="40"/>
+          <line x1="0" y1="85" x2="520" y2="85"/>
+          <line x1="0" y1="130" x2="520" y2="130"/>
+          <line x1="0" y1="175" x2="520" y2="175"/>
+        </g>
+        <path d="M0 196 C 90 192, 140 162, 205 150 C 285 134, 310 108, 390 88 C 445 74, 480 52, 520 36" stroke="#C9A45C" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M0 196 C 90 190, 150 176, 220 170 C 310 160, 340 152, 420 142 C 470 136, 500 130, 520 126" stroke="#6FA98B" stroke-width="2.4" stroke-dasharray="5 6" stroke-linecap="round"/>
+        <circle cx="520" cy="36" r="6" fill="#C9A45C"/>
+        <circle cx="520" cy="126" r="5" fill="#6FA98B"/>
+        <circle cx="88" cy="178" r="4" fill="#C9A45C"/>
+        <text x="500" y="16" text-anchor="end" font-size="11" fill="#8D97A5" font-family="inherit">时间</text>
+        <text x="10" y="18" font-size="11" fill="#8D97A5" font-family="inherit">公司价值</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="kb">
+    <aside class="cat-rail" id="cat-rail" role="tablist" aria-label="分类筛选"></aside>
+    <div>
+      <div class="kb-head">
+        <h2 id="grid-title">全部词条</h2>
+        <span class="cnt" id="result-count">–</span>
+      </div>
+      <div class="entry-grid" id="entry-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 视图：工具箱 ============ -->
+<section class="view" id="view-tools">
+  <div class="tools">
+    <div class="tools-head">
+      <h2>创业工具箱</h2>
+      <p>三个小工具：钱还能烧几个月、股权还剩多少、融资怎么谈。结果为示例估算，不构成法律或投资建议。</p>
+    </div>
+
+    <!-- 工具一：现金跑道计算器 -->
+    <div class="tool">
+      <div class="tool-head">
+        <span class="tool-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+        <div>
+          <h3>现金跑道计算器</h3>
+          <p>账上现金 ÷ 每月净烧钱 = 还能撑几个月。融资前，先算清楚这条命有多长。</p>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>账上现金 <output id="r-cash">800 万</output></label>
+          <input type="range" id="r-cash-range" min="50" max="5000" step="50" value="800">
+        </div>
+        <div class="field">
+          <label>每月支出 <output id="r-spend">40 万</output></label>
+          <input type="range" id="r-spend-range" min="5" max="300" step="5" value="40">
+        </div>
+        <div class="field">
+          <label>每月收入 <output id="r-income">8 万</output></label>
+          <input type="range" id="r-income-range" min="0" max="200" step="2" value="8">
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="rs"><b id="r-burn">–</b><span>每月净烧钱</span></div>
+        <div class="rs"><b id="r-runway">–</b><span>现金跑道（月）</span></div>
+        <div class="rs"><b id="r-alert">–</b><span>安全状态</span></div>
+      </div>
+      <div class="chart" id="runway-chart"></div>
+      <div class="chart-fallback" id="runway-fallback">图表组件未能加载（需联网访问 CDN），但上方计算结果仍可使用。</div>
+      <p class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>通用安全线：跑道 ≥ 12 个月相对从容，低于 9 个月应立即启动融资或降本。此处为估算示例，实际以公司财务数据为准。</p>
+    </div>
+
+    <!-- 工具二：股权稀释计算器 -->
+    <div class="tool">
+      <div class="tool-head">
+        <span class="tool-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 4 5-9"/></svg></span>
+        <div>
+          <h3>股权稀释计算器</h3>
+          <p>本轮融资出让多少、期权池预留多少，创始人还剩多少？提前算清，别等签 TS 才发现。</p>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>创始人当前持股 <output id="d-stake">80%</output></label>
+          <input type="range" id="d-stake-range" min="50" max="100" step="1" value="80">
+        </div>
+        <div class="field">
+          <label>投前估值 <output id="d-pre">5,000 万</output></label>
+          <input type="range" id="d-pre-range" min="500" max="100000" step="500" value="5000">
+        </div>
+        <div class="field">
+          <label>融资金额 <output id="d-raise">1,000 万</output></label>
+          <input type="range" id="d-raise-range" min="100" max="30000" step="100" value="1000">
+        </div>
+        <div class="field">
+          <label>期权池比例 <output id="d-pool">10%</output></label>
+          <input type="range" id="d-pool-range" min="0" max="20" step="1" value="10">
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="rs"><b id="d-stakeout">–</b><span>新投资人持股</span></div>
+        <div class="rs"><b id="d-post">–</b><span>投后估值</span></div>
+        <div class="rs"><b id="d-founder">–</b><span>融资后创始人持股</span></div>
+      </div>
+      <div class="chart" id="dilution-chart"></div>
+      <div class="chart-fallback" id="dilution-fallback">图表组件未能加载（需联网访问 CDN），但上方计算结果仍可使用。</div>
+      <p class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>出让比例 = 融资金额 ÷ 投后估值（投后 = 投前 + 融资额）；期权池通常由全体股东按比例共同稀释，此处为简化估算，实际以投资协议为准。</p>
+    </div>
+
+    <!-- 工具三：融资轮次参考 -->
+    <div class="tool">
+      <div class="tool-head">
+        <span class="tool-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div>
+          <h3>融资轮次参考</h3>
+          <p>不同轮次的钱、稀释与关注点差在哪。金额区间为常见参考，不同赛道差异巨大。</p>
+        </div>
+      </div>
+      <div class="profile-row" id="profile-row">
+        <button class="profile-btn active" data-profile="seed">种子轮</button>
+        <button class="profile-btn" data-profile="angel">天使轮</button>
+        <button class="profile-btn" data-profile="a">A 轮</button>
+        <button class="profile-btn" data-profile="b">B 轮</button>
+        <button class="profile-btn" data-profile="c">C 轮+</button>
+      </div>
+      <div class="profile-desc" id="profile-desc"></div>
+      <div class="chart" id="rounds-chart"></div>
+      <div class="chart-fallback" id="rounds-fallback">图表组件未能加载（需联网访问 CDN），请参考下方的对比表。</div>
+      <table class="cmp-table">
+        <colgroup><col style="width:16%"><col style="width:26%"><col style="width:20%"><col style="width:38%"></colgroup>
+        <thead><tr><th>轮次</th><th>典型融资金额</th><th>典型出让比例</th><th>投资人最关注</th></tr></thead>
+        <tbody>
+          <tr><td>种子轮</td><td>50–500 万</td><td>5%–15%</td><td>创始人与想法，原型验证</td></tr>
+          <tr><td>天使轮</td><td>200–2000 万</td><td>10%–20%</td><td>产品上线与早期用户，PMF 迹象</td></tr>
+          <tr><td>A 轮</td><td>2000 万–1 亿</td><td>15%–25%</td><td>产品-市场匹配，收入与单位经济</td></tr>
+          <tr><td>B 轮</td><td>1–4 亿</td><td>10%–20%</td><td>规模化复制，团队与运营效率</td></tr>
+          <tr><td>C 轮+</td><td>4 亿–15 亿+</td><td>5%–15%</td><td>盈利能力、护城河、IPO 准备</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>区间为行业常见参考，消费、科技、生物医药等赛道差异很大，不构成定价依据。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 详情弹层 ============ -->
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="close" id="modal-close" aria-label="关闭">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <span class="modal-cat" id="modal-cat"></span>
+    <h2 id="modal-title"></h2>
+    <p class="def" id="modal-def"></p>
+    <h4>详解</h4>
+    <p class="body" id="modal-body"></p>
+    <h4>要点</h4>
+    <ul id="modal-points"></ul>
+    <h4>常见误区</h4>
+    <ul id="modal-myths"></ul>
+    <h4>相关词条</h4>
+    <div class="rel-chips" id="modal-rel"></div>
+  </div>
+</div>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot">
+  <span>创业知识库 · 面向创业者 · 本地运行</span>
+  <span class="warn">创业有风险，内容为通用知识科普，不构成法律、财务或投资建议。</span>
+</footer>
+
+<noscript><div style="padding:40px;text-align:center;font-size:15px">本知识库需要启用 JavaScript 才能浏览词条与使用工具。</div></noscript>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>
+const KB_CATS = [
+  {id:'start', name:'创业起步', icon:'rocket', desc:'动机、想法、市场与商业计划'},
+  {id:'funding', name:'融资与股权', icon:'fund', desc:'融资轮次、估值、股权与条款'},
+  {id:'finance', name:'财务与现金流', icon:'cash', desc:'烧钱率、盈亏平衡与财务预测'},
+  {id:'legal', name:'法律与合规', icon:'gavel', desc:'注册、股东协议与知识产权'},
+  {id:'team', name:'团队与组织', icon:'team', desc:'合伙人、激励与招聘'},
+  {id:'growth', name:'增长与运营', icon:'trend', desc:'获客、留存、定价与单位经济'},
+  {id:'product', name:'产品与迭代', icon:'pulse', desc:'需求、验证、数据与迭代'},
+  {id:'risk', name:'风险与退出', icon:'guard', desc:'常见坑、止损与退出路径'}
+];
+
+const KB_ENTRIES = [
+  // ===== 创业起步 =====
+  {id:'bp', c:'start', t:'商业计划书（BP）',
+   d:'把「做什么、给谁做、怎么赚钱」写清楚的一份文件。投资人通常只看几分钟。',
+   b:'投资人一天看几十份，每份不会超过几分钟。所以开头先讲痛点和机会，再讲产品和模式；市场规模按「客群数 × 客单价」自己推，别抄行业总盘子。团队、财务预测、融资用途各占一块，用途具体到月。早期项目一页纸往往比几十页更管用——说不清的事，写再多页也说不清。',
+   p:['先讲痛点再讲产品，顺序反了等于白写','市场规模自己算，别拿行业总盘子贴金','融资用途写到月：钱花在哪、几个月烧完','给投资人看的和给招聘看的，是两份不同的东西'],
+   m:['写成上市路演稿，术语堆满，投资人不买账','市场规模按「14 亿人每人一块钱」拍脑袋'],
+   r:['market-research','model']},
+  {id:'model', c:'start', t:'商业模式',
+   d:'公司靠什么创造价值，又靠什么收钱。',
+   b:'常见模式：订阅（SaaS）、平台抽佣、广告、硬件加服务、项目制、渠道分成。判断一个模式好不好，就三问：客户愿付多少钱？获客要花多少？毛利能不能覆盖成本？注意商业模式和盈利模式不是一回事：前者是整体结构，后者只是收入方式。',
+   p:['先跑通单个客户的经济账，再想规模','收入可以多元，但别一开始就什么都做','模式要撑得住规模增长，别一做大就塌'],
+   m:['「先把用户做起来，变现以后再说」——多半等不到以后','模式复杂到一句话讲不清，基本是没想清'],
+   r:['unit-economics','pricing']},
+  {id:'market-research', c:'start', t:'市场调研',
+   d:'用一手、二手信息验证需求是不是真的、市场有多大。',
+   b:'自上而下：从行业报告拿总盘子，再往下切你的可及市场；自下而上：目标客群数量 × 客单价。两个口径对不上时，以自下而上为准。一手调研（访谈、问卷、实地看）永远比二手报告可信——报告会吹，客户不会。关键不是市场多大，是你够得到的市场多大、涨得够不够快。',
+   p:['TAM 落到 SAM，再落到 SOM','下结论前，至少访谈 20 个真实潜在客户','市场规模 = 人群 × 场景 × 频次 × 客单价'],
+   m:['拿行业总盘子给自己贴金，你做的不是整个行业','调研只找会捧场的朋友'],
+   r:['bp','customer-segment']},
+  {id:'mvp', c:'start', t:'最小可行产品（MVP）',
+   d:'花最少的钱，验证最要命的一个假设。',
+   b:'MVP 要验证的是「用户到底要不要」，不是功能全不全。落地页加人工服务、一个单功能原型、甚至一段视频，都算。衡量的标准只有一个：真实反馈——有没有付费、复购、转介绍。没有这些，功能做再多也是自嗨。',
+   p:['一次只验证一个最关键假设','能用人工顶的先人工顶','动手前定好验证指标：付费率、留存、复购'],
+   m:['把 MVP 做成功能阉割版的完整产品','功能凑齐了才敢给用户看——那时多半已经晚了'],
+   r:['user-interview','iteration']},
+  {id:'lean', c:'start', t:'精益创业',
+   d:'用「构建-测量-学习」的循环小步试错，少浪费。',
+   b:'核心就一句话：假设驱动，小步快跑，用数据验证，不行就转向（pivot）。它反对的是「闷头做两年再发布」。配套要有：可验证的指标、固定的实验周期，以及承认自己假设错了的勇气——最后这个最难。',
+   p:['先写假设再写代码','每次实验只动一个变量','数据说话，别拿感觉辩护'],
+   m:['以为精益就是不做规划瞎试','pivot 了三次，每次还是犯同一个错'],
+   r:['mvp','data-driven']},
+  {id:'customer-segment', c:'start', t:'客户细分',
+   d:'把用户按特征和需求切开，先服务最值得服务的那一群。',
+   b:'切法很多：人群特征、使用场景、痛点强度、付费能力。早期创业最常见的死法，就是妄想做一个所有人都用的产品。正确做法：挑一个「痛点够强、愿意付钱」的细分人群，做到十分，再往外扩。',
+   p:['选「最痛最愿意付」的细分，别选「最大」的','画像写清楚：谁、什么场景、痛在哪、现在用什么','利基市场是起点，不是终点'],
+   m:['目标客户写「20–45 岁所有人」——等于没写','用「人人都需要」掩盖自己没想清楚'],
+   r:['market-research','positioning']},
+  {id:'positioning', c:'start', t:'定位与差异化',
+   d:'让目标客户记住你，还说得清你凭什么。',
+   b:'定位就回答三个问题：我是谁、为谁、凭什么。差异化可以来自成本、体验、渠道、技术或服务，前提是客户能感知、对手难复制。检验方法：让一个客户听完你的介绍，15 秒内能不能复述出来？不能，就是没定位好。',
+   p:['定位要具体到客户能原样复述','差异化必须客户感受得到','别用「更好更快更强」——这等于什么都没说'],
+   m:['把定位当口号','差异化做到只有自己知道'],
+   r:['customer-segment','demand']},
+  {id:'lean-canvas', c:'start', t:'精益画布',
+   d:'一张纸九个格子，把创业假设摆出来反复改。',
+   b:'九格：问题、客户细分、独特卖点、解决方案、渠道、收入流、成本结构、关键指标、不公平优势。和 BP 的区别：BP 是写给别人看的定稿，画布是写给自己改的草稿——每格填一句话，能验证的才留下。访谈回来就更新，画布变旧说明你在进步。',
+   p:['假设写成可验证的句子，能设计实验','每格一句话，写多了就是没想清','每次访谈后回来改画布'],
+   m:['把画布填成完美计划才动手','画布填完就扔，不再更新'],
+   r:['bp','mvp','market-research']},
+  {id:'competitive', c:'start', t:'竞争分析',
+   d:'摸清对手怎么活，找到他们没覆盖的缝隙。',
+   b:'四步：列出直接对手和间接对手；拆他们的产品、价格、渠道、获客方式；找他们没覆盖的需求或打不透的客群；定自己的切入点。别只盯着大公司，离你最近的小对手才最有参考价值——他们的打法你能看懂，也能抄。',
+   p:['对手是信息源，不是恐惧源','差异化要有客户证据，不能自封','竞争格局会变，每半年更新一次'],
+   m:['看了几家竞品就宣布没有对手','把对手的缺点当自己的卖点'],
+   r:['positioning','market-research','moat']},
+  {id:'pmf', c:'start', t:'产品市场契合（PMF）',
+   d:'你的产品被一小群人需要、常用、愿意付费的状态。',
+   b:'不是感觉，是可观察的信号：自然增长占比往上走、留存曲线变平、用户主动拉人来、付费转化稳定。经典检验是 Sean Ellis 测试：问用户"如果明天不能用了，你会有多失望"，40% 以上选"非常失望"才算踩到边。契合是动态的，市场变了它也会漂，要定期复查。',
+   p:['PMF 之前别砸钱做增长','用留存和推荐判断，别用好评和自嗨','契合会漂移，每季度复查一次'],
+   m:['下载量大就算契合','投资人点头比用户掏钱更能说明问题'],
+   r:['mvp','retention','pricing']},
+  {id:'moat', c:'start', t:'护城河',
+   d:'对手花再多钱也难复制的结构性优势。',
+   b:'常见来源：品牌认知、网络效应、转换成本、规模成本优势、独家数据、专利和牌照、独占渠道。判断标准就一句：对手要花多少钱、多长时间追上你。早期公司谈不上护城河，先活下来，边跑边建——"做得早"不是护城河，"越用越好用"才是。',
+   p:['护城河是动态的，要持续加固','别把先发优势和渠道资源当壁垒','先验证需求，再谈护城河'],
+   m:['有用户就算有护城河','护城河是写进 BP 的一句话'],
+   r:['positioning','competitive','market-research']},
+
+  // ===== 融资与股权 =====
+  {id:'rounds', c:'funding', t:'融资轮次',
+   d:'按公司阶段从外部拿钱：天使、A、B、C，一轮一个说法。',
+   b:'天使/种子：验证想法，钱少、条款松；A 轮：验证产品和市场匹配（PMF），要有收入或硬数据；B 轮：验证规模化，收入快涨；C 轮以后：扩张、并购或准备 IPO。轮次不是勋章，是公司发展到哪的自然刻度——为了面子硬凑轮次名，投资人一眼看穿。',
+   p:['能晚融就晚融，能少稀释就少稀释','每轮的钱要挂上明确的里程碑','估值是谈出来的，不是算出来的'],
+   m:['为了「面子」硬把公司叫成 A 轮','融不到 A 轮就宣布 Pre-A，反而更难看'],
+   r:['valuation','term-sheet']},
+  {id:'valuation', c:'funding', t:'估值',
+   d:'公司值多少钱。早期没有精确答案，更多是谈出来的。',
+   b:'常见三种方法：对标同赛道公司（可比法）、现金流折现（DCF，成熟公司才用得上）、以及早期最常用的——「需要融多少钱、愿意让多少股权」反推。真正影响数字的是：团队、赛道热度、你的数据、竞品融资、市场冷热。早期估值合理比估值高重要，估值谈崩了，比估值低更伤。',
+   p:['投前估值和投后估值必须分清：投后 = 投前 + 融资额','早期合理估值 > 高估值','反稀释、优先权这些条款，比估值数字更值得争'],
+   m:['「估值越高越好」——太高了下一轮只能降（down round）','拿隔壁公司的估值硬套自己'],
+   r:['rounds','dilution']},
+  {id:'cap-table', c:'funding', t:'股权结构',
+   d:'创始人、投资人、期权池各占多少的一张表。',
+   b:'早期比较健康的结构：创始团队 60–80%、期权池 10–20%、投资人 10–30%。最忌两件事：平均主义（三个创始人 33/33/33），和一人独大无人制衡。股权要和贡献、风险对价挂钩，动态调整比一次定死靠谱。',
+   p:['创始人之间要有明确控股方或一致行动安排','期权池在融资前预留，投资人会要求','代持必须签协议，尽快还原'],
+   m:['三个合伙人 33/33/33 平分，后面必吵','嘴上说「以后再说」，股权不落纸面'],
+   r:['option-pool','shareholder-agreement']},
+  {id:'dilution', c:'funding', t:'股权稀释',
+   d:'每次融资发新股，老股东的比例都会变小。',
+   b:'算一笔账：创始人持股 100%，天使轮出让 20% 剩 80%；A 轮再出让 20%，剩 64%。稀释是融资的必然成本，关键是蛋糕有没有变大：稀释 20% 但估值翻五倍，你手里的绝对价值是涨的。盯着比例不放，反而容易错过该拿的钱。',
+   p:['盯绝对价值，别只盯比例','用股权计算器把后面几轮一起模拟了','能一次融到位，就别频繁小融'],
+   m:['「打死不出让」——拒绝稀释就是拒绝增长的钱','只看到比例变小，看不到估值变大'],
+   r:['valuation','rounds']},
+  {id:'option-pool', c:'funding', t:'期权池',
+   d:'给未来核心员工预留的股份，由全体股东一起稀释。',
+   b:'期权池通常占总股本 10–20%，融资时投资人会要求设立。给员工的期权有归属期（常见 4 年 + 1 年悬崖）、行权价、回购条款。期权是「以后的钱」，条款写清楚比数字大方重要得多——不然发出去收不回来。',
+   p:['融资前预留，创始人股东共同稀释','归属期和解锁条件写进协议','离职未归属的部分收回'],
+   m:['口头承诺「给你一个点」，不签文件','期权池全从创始人一个人头上扣'],
+   r:['cap-table','equity-incentive']},
+  {id:'term-sheet', c:'funding', t:'投资条款清单（TS）',
+   d:'投资意向的条款摘要。不是最终文件，但决定后面怎么谈。',
+   b:'要看的条款：估值、投资额、股权比例、董事会席位、优先清算权、反稀释、回购权、对赌和里程碑、排他与保护期。签了 TS 不代表钱到账，尽职调查过了、正式增资协议签了才算。',
+   p:['优先清算权决定退出时钱怎么分，先看懂它','反稀释有「完全棘轮」和「加权平均」两种，后者更常见也合理','请律师审 TS，这笔钱省不得'],
+   m:['只盯估值数字，清算优先权看都不看','条款没看懂就签，赌投资人不会坑你'],
+   r:['rounds','dd']},
+  {id:'dd', c:'funding', t:'尽职调查（DD）',
+   d:'投资人在打钱之前，把你公司翻个底朝天。',
+   b:'分三块：业务 DD（数据真不真、客户、模式）、财务 DD（账目、税务、关联交易）、法律 DD（股权、合同、知识产权、劳动）。要准备的：工商资料、财务报表、合同台账、知识产权证书、社保缴纳记录。平时留好凭证，别等 DD 前突击。',
+   p:['日常留凭证，别临时抱佛脚','数据口径前后要一致，对不上最可疑','社保、发票这类欠账，会在 DD 阶段直接砍估值'],
+   m:['以为签了 TS 就稳了——DD 不过照样终止','为了过 DD 编数据，那是给自己埋雷'],
+   r:['term-sheet','legal-risk']},
+  {id:'pitch', c:'funding', t:'融资路演',
+   d:'在几分钟里（常见 5–15 分钟）讲清机会，让投资人记住你。',
+   b:'结构：痛点开场（3 分钟内）→ 解决方案 → 市场 → 商业模式 → 进展和数据 → 团队 → 融资计划。路演是销售加证明：数据证明进展，愿景激发想象。开场 30 秒讲不清痛点，后面全白讲。',
+   p:['开场 30 秒讲不清痛点，后面全白讲','数据页面要真实、经得起追问','准备 3 分钟、10 分钟、30 分钟三档','练到脱口而出再上场'],
+   m:['把路演当产品发布会，狂炫功能','答不上「为什么是你做这件事」'],
+   r:['bp','rounds']},
+  {id:'vam', c:'funding', t:'对赌协议',
+   d:'投资方用未来业绩目标，修正当下估值分歧的条款。',
+   b:'常见形式：营收或利润对赌、上市时间对赌。代价很实在：业绩没达标要补偿股份或现金，条件苛刻还可能触发个人连带。能谈就谈：目标要单一、可验证、给自己留缓冲；涉及个人无限连带责任的条款，坚决不签。',
+   p:['对赌是价格修正工具，别当成经营目标','目标定在合理区间的下限附近','补偿方式优先股份，避免现金和个人担保'],
+   m:['签对赌等于拿到钱就赢','目标拍脑袋定，完了再谈'],
+   r:['term-sheet','valuation','cap-table']},
+
+  // ===== 财务与现金流 =====
+  {id:'cashflow', c:'finance', t:'现金流管理',
+   d:'让账上的钱在对的时间出现在对的地方。',
+   b:'创业公司死因第一位不是没利润，是现金流断了。应收（客户欠款）、应付（供应商）、库存，全都占着现金。要做的事：预测未来 6–12 个月现金流、控制回款周期、保住最低安全现金余额。利润表会骗人，现金流量表不会。',
+   p:['利润表会骗人，现金流量表不会','回款周期写进合同，逐笔跟踪','账上留足「撑到下轮融资也死不了」的钱'],
+   m:['看利润不看现金流，月底才发现没钱发工资','以为合同签了钱就到账了'],
+   r:['runway','burn-rate']},
+  {id:'burn-rate', c:'finance', t:'烧钱率',
+   d:'每月净流出的现金，支出减收入。它决定你还能撑多久。',
+   b:'烧钱率 = 月固定成本 + 变动成本 − 月收入。账上现金除以它，就是跑道。花每一笔钱之前问一句：这笔出去，跑道短多少、换回来什么？招聘、投放、换办公室，都拿这个标准过一遍，能少死很多公司。',
+   p:['固定支出和可变支出分开算','融资前先算：按现在的烧钱速度，能活几个月','烧钱要能换增长或关键里程碑，纯撑场面就别烧'],
+   m:['「先烧起来，增长自然会来」——顺序反了','账上只剩 3 个月才回头看跑道'],
+   r:['runway','cost-control']},
+  {id:'runway', c:'finance', t:'现金跑道',
+   d:'账上现金 ÷ 每月烧钱率 = 还能撑的月数。',
+   b:'举例：账上 600 万、月烧 50 万，跑道 12 个月。一轮融资通常要 6–9 个月走完，所以跑道低于 9 个月就得启动融资或降本。跑道是 CEO 的日常功课：每周看，每月复盘，把数字同步给核心团队——透明比恐慌强。',
+   p:['安全跑道 ≥ 12 个月，覆盖融资周期加突发','降本永远比融资更可控','跑道数字对核心团队透明，别瞒'],
+   m:['「融资快到了，先不降本」——融资最擅长跳票','按最顺利的情况算融资周期'],
+   r:['burn-rate','cashflow']},
+  {id:'cost-control', c:'finance', t:'成本控制',
+   d:'把钱花在能换回增长或验证的地方。',
+   b:'每次花钱前问三句：换收入？换数据？换客户？固定成本（办公室、人头）要有节制，可变成本（投放、佣金）和收入挂钩。省钱不是目的——该砍的是「花了也白花」的，不是「能带来增长」的。',
+   p:['固定成本优先压','按月盯「成本 / 收入」的毛利','大额支出拿「是否直接服务核心假设」来审'],
+   m:['一刀切省钱，把获客也砍了','为了体面租大办公室，现金流却吃紧'],
+   r:['burn-rate','unit-economics']},
+  {id:'breakeven', c:'finance', t:'盈亏平衡点',
+   d:'收入刚好盖住成本、开始不亏的那个点。',
+   b:'盈亏平衡 = 固定成本 ÷（客单价 − 单位变动成本）。算出来就知道需要多少客户、多久能到。对早期公司，顺序是：先让单笔订单毛利为正，再追求月度盈亏平衡，最后才是规模化。',
+   p:['先算单位毛利，再算总量','盈亏平衡的时间点是融资谈判的筹码','模型里把固定和变动成本分开'],
+   m:['拿全年总收入减总成本就以为平衡了——按月度算','把一次性收入算进经常性收入'],
+   r:['unit-economics','cashflow']},
+  {id:'financial-plan', c:'finance', t:'财务预测',
+   d:'把未来 12–24 个月的收入、成本、现金流，用可解释的假设写下来。',
+   b:'财务预测就是把假设摆上台面：从客户数、客单价、转化率、流失率推收入；从人员、市场、运营推成本。投资人最看重现金流和收入增速假设合不合理。预测不是算命，是对外说清「你为什么这么想」。',
+   p:['每个数字背后要有逻辑和来源','分保守、中性、乐观三档','月度滚动更新，别写完就扔'],
+   m:['数字拍脑袋，被问就说「凭经验」','预测里全是乐观假设，一个风险都没写'],
+   r:['bp','burn-rate']},
+  {id:'tax-basics', c:'finance', t:'创业税务基础',
+   d:'公司日常要交哪些税、哪些事别踩坑。',
+   b:'常见税种：增值税（小规模纳税人月销售额 10 万以下免税、一般纳税人按销项减进项）、企业所得税（小微有优惠税率）、附加税费、印花税，工资要代扣个税。实操重点：进项发票要齐、费用报销别找野路子发票、申报别靠记忆——设日历提醒。账可以外包代账，但老板每周要看懂现金流和税负。',
+   p:['发票管理和申报日期记进日历','小微优惠政策条件每年可能变','税负异常先自查，别拖到汇算清缴'],
+   m:['找个代账就万事大吉','公司账户和私人账户混着走账'],
+   r:['cashflow','cost-control','financial-plan']},
+  {id:'receivable', c:'finance', t:'应收账款管理',
+   d:'货到了钱没收齐——回款是隐形的现金流。',
+   b:'创业公司最常见的死法之一：营收漂亮，钱全在客户账上。对策：签约时写明账期和逾期责任、发货后按节点催款、单一大客户占比设上限、逾期就停供。把"已开票未回款"做成一张风险表，按客户和账龄盯。',
+   p:['账期越短越安全，能现结不赊账','催款记录留痕，微信截图也算证据','按账龄看回款，别只看总应收'],
+   m:['客户越大越敢赊','回款是财务的事，业务不管'],
+   r:['cashflow','contract']},
+
+  // ===== 法律与合规 =====
+  {id:'register', c:'legal', t:'公司注册与类型',
+   d:'选一个法律主体把公司立起来，决定责任边界和税负结构。',
+   b:'常见选择：有限责任公司（最常见，以出资额为限）、一人有限公司（慎用，财产混同可能连带）、有限合伙（多用于持股平台和基金）、个体工商户（个人无限责任）。注册要点：认缴制下注册资本量力而行、经营范围想清楚、注册地的税收政策值得研究。',
+   p:['有限公司是多数创业者的默认选项','认缴不等于实缴，虚高注册资本是风险','金融、医疗等特殊资质，先查许可要求'],
+   m:['「注册资本写一个亿显得有实力」——出事要担责','用别人身份证代持注册'],
+   r:['shareholder-agreement','legal-risk']},
+  {id:'shareholder-agreement', c:'legal', t:'股东协议',
+   d:'约束创始人和股东之间权利义务的核心文件。',
+   b:'关键条款：股权比例与出资、表决权安排、退出机制（回购/转让）、竞业禁止、保密、决策机制、僵局处理。协议要覆盖「关系破裂了怎么办」——因为破裂几乎必然发生，只是时间问题。先小人后君子，不是不信任，是省得以后打官司。',
+   p:['退出机制比进入机制重要','约定清楚谁说了算','代持、回购、竞业全部落到纸面'],
+   m:['「我们兄弟不会闹翻」——这句是散伙的开场白','只有口头约定，没签协议'],
+   r:['cap-table','option-pool']},
+  {id:'ip', c:'legal', t:'知识产权',
+   d:'专利、商标、著作权、商业秘密——公司最值钱的东西要有法定归属。',
+   b:'技术型公司：核心专利尽早申请，发明专利周期长；品牌：商标按类别注册，防抢注；代码和内容：著作权加开源合规；算法和配方：商业秘密加保密协议。关键一条：员工在职产出归公司，权属条款要签，不然离职就带走。',
+   p:['商标注册趁早，越早越便宜','核心专利先布局再融资，DD 会看','开源代码的使用要符合许可证','保密协议覆盖员工和供应商'],
+   m:['产品发布后才发现商标被抢注','员工代码归属不清，离职直接带走'],
+   r:['dd','legal-risk']},
+  {id:'employment', c:'legal', t:'劳动用工合规',
+   d:'劳动合同、社保、个税、加班、辞退的法定底线。',
+   b:'底线四条：入职签书面劳动合同（不签有双倍工资风险）、足额缴社保公积金、个税代扣代缴、辞退按法定补偿。灵活用工（外包、实习、兼职）有边界，「不是正式工」不是万能挡箭牌。',
+   p:['合同、社保、个税三条红线别碰','试用期有法定上限，别乱延长','核心员工签保密和竞业协议','争议的成本远高于预防的成本'],
+   m:['「先干着，转正再签合同」','用个人账户发工资逃个税——查出来是大事'],
+   r:['legal-risk','contract']},
+  {id:'data-compliance', c:'legal', t:'数据与个人信息合规',
+   d:'收集、存储、使用用户数据的法定边界。',
+   b:'《个人信息保护法》管的是所有处理个人信息的主体，不是只有大厂：合法、正当、必要，敏感信息单独同意，用户有删除权。App 和小程序要有隐私政策、告知同意；数据出境有专门规则。做用户产品的创业公司，第一天就要面对，不是「以后再说」。',
+   p:['隐私政策要用户读得懂，还要和实际行为一致','收集最小必要，别什么都想要','数据出境先查规定','违规处罚可能直接危及融资和经营'],
+   m:['「用户没得选，只能同意」','把数据合规当上线前的最后一步'],
+   r:['employment','legal-risk']},
+  {id:'legal-risk', c:'legal', t:'创业法律风险清单',
+   d:'高频踩坑的合规事项速查：发票、对赌、关联交易、虚假宣传。',
+   b:'常见雷区：虚开发票（红线）、对赌未达标触发回购、关联交易损害公司利益、广告用语违反广告法（「最」「第一」这类极限词）、虚假宣传被处罚。原则三条：能写纸面的不口头、能请律师的不省、能用模板的不裸奔。',
+   p:['发票三流合一：合同、资金、货物流','广告极限词是高频罚单，文案先自查','对赌条款读三遍再签','定期做一次法律体检'],
+   m:['「小公司没人查，先不管」','出事了才找律师救火，火已经烧起来了'],
+   r:['shareholder-agreement','dd']},
+  {id:'contract', c:'legal', t:'合同管理',
+   d:'公司内外交易用书面合同固定权利义务，并建台账。',
+   b:'核心合同：采购、销售/服务、租赁、借款、保密、劳动合同。好合同不是长，是争议点说清：付款节点、交付标准、违约责任、争议解决。用台账记录签署、履行、续约状态，到期该续的续，该催的催。',
+   p:['先小人后君子：签清再干活','付款和交付里程碑挂钩','盖章签字的人要授权明确'],
+   m:['拿聊天记录当合同','模板拿来就签，条款看都不看'],
+   r:['employment','legal-risk']},
+  {id:'trademark', c:'legal', t:'商标注册',
+   d:'把品牌名和 Logo 变成受法律保护的资产。',
+   b:'注册前先查重，同名撞车是白花钱；注册类别覆盖主业再加一两个防御类别；TM 是申请中，R 是注册成功，别混着宣传。商标注册后要实际使用，连续三年不用可能被撤销。一个类几百块，别省这个钱——品牌做起来了名字不是你的，才是真的疼。',
+   p:['先查重再交钱，查询免费','核心类别加防御类别一起注册','发现抢注：异议或无效宣告，别慌着买'],
+   m:['公司注册了名字就是我的','等品牌做起来再注册也来得及'],
+   r:['ip','legal-risk']},
+  {id:'nominee', c:'legal', t:'股权代持',
+   d:'实际出资人不出面，让别人代持股份的安排。',
+   b:'法律上协议有效，但风险实在：名义股东可能私下卖股、质押，甚至因为自己欠债被法院执行。应对：书面协议写明表决、分红、处分权；出资流水留痕；有条件就去办质押或公证。能显名就显名，代持是临时方案，不是长期安排。',
+   p:['协议书面化，出资凭证保存好','代持范围写清：表决、分红、处分','能显名就尽早显名'],
+   m:['口头说好就行','找个信得过的人就一劳永逸'],
+   r:['shareholder-agreement','cap-table','legal-risk']},
+
+  // ===== 团队与组织 =====
+  {id:'cofounder', c:'team', t:'合伙人选择',
+   d:'找价值观一致、能力互补、能共担风险的人。',
+   b:'合伙之前问三句：为什么是他？能力和资源补不补得上？万一关系破裂，能不能体面处理？常见组合：产品加技术、业务加研发。合伙人和婚姻一样，最好在开始就把账算清——股东协议、归属期、分工和决策权，一样都别省。',
+   p:['价值观和信任排在能力前面','股权和贡献挂钩，设归属期','分工和决策权写清楚，避免内耗','家人朋友合伙，更要书面化'],
+   m:['找「能投钱的人」当合伙人——那是投资人','三个强 CEO 凑一起，没人干脏活累活'],
+   r:['shareholder-agreement','equity-incentive']},
+  {id:'equity-incentive', c:'team', t:'股权激励',
+   d:'用期权或限制性股权，把核心员工的利益绑到公司长期。',
+   b:'对象是早期核心团队和关键岗位，不是全员普惠；形式是期权（授予价加归属期）或限制性股权；规模参考：早期单个核心员工 0.5%–3%。激励要「给到值得长期绑定的人」。离职机制和回购条款写清楚，不然离职时又是一场官司。',
+   p:['激励对象宁缺毋滥','归属期 4 年常见，加 1 年悬崖','行权和退出条款提前约定','行权时的税务提前咨询'],
+   m:['全员每人发一点，当团建','口头画饼，不给文件'],
+   r:['option-pool','cap-table']},
+  {id:'hiring', c:'team', t:'招聘',
+   d:'用流程和标准找到能扛事的人，而不是简历好看的人。',
+   b:'早期招人三条：业务敏感度、学习能力、自驱力，比经验重要；面试问「过去的行为案例」，别问「你会怎么做」这种送分题；发 offer 前做背景核实。错招一个人，成本是 2–3 倍工资加团队士气，所以招聘宁缺毋滥。',
+   p:['前 10 个员工 CEO 亲自面','用试岗或项目验证真实能力','薪资结构（底薪加期权）说清楚','设淘汰机制，别让不合适的人耗着'],
+   m:['「招便宜的，教一教就会」','为了凑人头快速扩招'],
+   r:['okr','culture']},
+  {id:'okr', c:'team', t:'目标与 OKR',
+   d:'用对齐的目标和可量化的关键结果驱动执行。',
+   b:'公司目标 → 部门目标 → 个人目标，层层对齐；每个目标配 2–3 个可量化 KR。OKR 是「做什么」的共识工具，不是考核工具——考核另算。早期团队人少，一页纸对齐比复杂流程有效得多。',
+   p:['目标聚焦，3–5 个就够','KR 必须可量化可验证','周会复盘进度和障碍','CEO 亲自讲目标，讲透'],
+   m:['把 OKR 写成任务清单','目标列了十个，等于没有目标'],
+   r:['culture','hiring']},
+  {id:'culture', c:'team', t:'组织与协作',
+   d:'用清晰的职责、流程和文化，让团队在快节奏里不内耗。',
+   b:'早期组织：扁平、一专多能、信息透明。工具和流程够用就好：项目看板、例会、文档沉淀。文化是「没人在场时的决策准则」——写下来、讲出来、用奖惩兑现，而不是贴墙上。',
+   p:['沟通成本是早期最大的隐性成本','决策要慢讨论、快执行','决策记录写进文档，减少重复沟通','文化靠行为示范，不靠口号'],
+   m:['「人少不用流程」——人一多必乱','文化等于团建和口号'],
+   r:['okr','hiring']},
+  {id:'founder-mind', c:'team', t:'创始人心理与节奏',
+   d:'创业是情绪过山车，先管好自己的能量，再管团队。',
+   b:'常见陷阱：长期焦虑（怕钱烧完）、自我怀疑、拿自己和别人融资比、报喜不报忧。解法：固定运动和睡眠、建外部支持网络（同行圈子、导师）、把「不可控」和「可行动」分开、提前设止损线。创始人垮了，公司比融资失败死得更快。',
+   p:['创始人心理健康直接影响决策质量','向董事会报忧比硬撑安全','定期问自己：我是为什么在创业'],
+   m:['用加班麻痹焦虑','所有压力一个人扛，最后崩盘'],
+   r:['pitfalls','culture']},
+  {id:'performance', c:'team', t:'绩效管理',
+   d:'让目标、反馈和结果对齐，而不是年底算总账。',
+   b:'周期上：季度目标加月度反馈，比一年一次考核有用得多；反馈要基于事实（数据和行为），别凭印象打分；结果分级要公开。早期人少，目标说清、周会看进度、即时给反馈，比上一套绩效系统更有效。绩效和股权激励分开——一个是过程管理，一个是长期绑定。',
+   p:['反馈基于事实，当场说清','绩效结果要和晋升、激励挂钩才有用','不适合的人尽早处理，别拖到年底'],
+   m:['绩效管理等于年终打分','把 OKR 直接当考核工具'],
+   r:['okr','equity-incentive']},
+
+  // ===== 增长与运营 =====
+  {id:'channels', c:'growth', t:'获客渠道',
+   d:'用户从哪来：内容、投放、转介绍、渠道分销、地推、社群。',
+   b:'早期别铺所有渠道：挑 1–2 个和你客户画像最匹配的，跑通转化再放大。渠道好不好看三个数：获客成本（CAC）、转化率、规模天花板。每个渠道单独算账，混在一起算等于没算。',
+   p:['渠道要可追踪、可复购、可放大','早期优先能低成本验证用户的渠道','每个渠道单独统计 CAC'],
+   m:['每个渠道都试一点，哪个都不深','只盯曝光，不看转化'],
+   r:['cac-ltv','retention']},
+  {id:'conversion', c:'growth', t:'转化率',
+   d:'从访问到付费每一步的通过比例，找出流失最多的环节。',
+   b:'漏斗：曝光 → 点击 → 注册 → 体验 → 付费 → 留存。每步都掉人，重点修掉得最狠的那一环。提升转化三件套：减少步骤、增强信任（案例、评价）、降低门槛（试用、小额）。',
+   p:['先量化漏斗，再动手','一次只改一个变量','新用户首次体验决定一半的留存'],
+   m:['只盯总注册量，不看漏斗','转化低就加投放——先把漏斗修好'],
+   r:['aarrr','ab-test']},
+  {id:'retention', c:'growth', t:'用户留存',
+   d:'用户用完之后还回不回来、多久回来、回几次。',
+   b:'留存是增长的复利：留存提升 5%，长期价值可能提升 25–95%（经典参考数据）。看曲线：次日、7 日、30 日，曲线趋平说明找到了习惯用户。改善留存：做好激活体验、让核心价值尽快兑现、培养习惯、分层运营。',
+   p:['留存先于拉新','按留存分组看不同渠道的质量','流失用户做回访，问为什么走','留存按月看趋势'],
+   m:['用户来了就走，还拼命买量','把「活跃」和「留存」混为一谈'],
+   r:['aarrr','cac-ltv']},
+  {id:'aarrr', c:'growth', t:'AARRR 海盗指标',
+   d:'增长全景框架：获取、激活、留存、收入、推荐。',
+   b:'Acquisition 获客 → Activation 激活（首次体验价值）→ Retention 留存 → Revenue 收入 → Referral 推荐。每个环节定义清楚自己的指标，别拿一个大盘数字糊弄自己——DAU 再高，留存崩了一样完蛋。',
+   p:['按环节拆指标，找瓶颈','北极星指标是用户真实价值的代理','推荐（口碑）是质量最高的增长'],
+   m:['只盯一个数字（比如 DAU）','把刷出来的激活当真实用户'],
+   r:['retention','conversion']},
+  {id:'cac-ltv', c:'growth', t:'CAC 与 LTV',
+   d:'获客成本和客户终身价值——单位经济的两根柱子。',
+   b:'LTV = 客单价 × 毛利率 × 平均生命周期；CAC = 总获客支出 ÷ 新增客户。健康线参考：LTV/CAC > 3，回收期 < 12 个月。单位经济算不清的增长，是花钱买麻烦。',
+   p:['付费和非付费渠道分开算','回收期比 LTV/CAC 更早暴露问题','毛利用真实口径，含履约成本'],
+   m:['只算收入不算毛利','把一次性大单客户混进 LTV'],
+   r:['unit-economics','pricing']},
+  {id:'pricing', c:'growth', t:'定价策略',
+   d:'定价是商业模式的一部分：决定客户认知、毛利和增长天花板。',
+   b:'定价方法：成本加、竞品对标、价值定价（按客户收益）、阶梯定价（基础/专业/企业）。价格不是越低越好：低价吸引错客户、压毛利、撑不起服务。调价要测试、要沟通，别一夜变天。',
+   p:['定价随价值交付升级','年付优惠能改善现金流','用 A/B 测价格敏感度','涨价给老客户缓冲'],
+   m:['低价抢市场再涨价——用户会跑','定价拍脑袋，一个价到底'],
+   r:['cac-ltv','model']},
+  {id:'unit-economics', c:'growth', t:'单位经济模型',
+   d:'单个客户或单笔交易的收入与成本结构。',
+   b:'核心算式：单客户毛利 = 客单价 − 履约成本 − 获客成本摊销。单位经济为正，规模才有意义；为负的增长是每多卖一单亏一单。SaaS 看 LTV/CAC 和回收期，电商看毛利和物流，服务看人效。',
+   p:['先让单客模型跑正，再谈放大','单位经济随规模会变（议价、效率）','写进 BP，让投资人看到你会算账'],
+   m:['用「未来规模效应」掩盖现在亏钱','把补贴算成收入'],
+   r:['cac-ltv','breakeven']},
+  {id:'virality', c:'growth', t:'病毒系数（K 因子）',
+   d:'一个用户平均带来几个新用户。',
+   b:'K = 平均邀请数 × 邀请转化率。K 大于 1 能自增长，小于 1 就得买量补。提升方法：降低邀请门槛（一键邀请）、邀请双方都有奖励、让分享发生在用户刚体验到价值之后。算 K 要按批次（cohort）算，别拿大盘数字骗自己；K 会随规模衰减。',
+   p:['先算清 K 再决定要不要投放大','奖励要双边都给，单边没人动','分享时机选在价值兑现那一刻'],
+   m:['做了邀请功能就有病毒性','K 值算出来是 1.2 就以为稳了'],
+   r:['aarrr','channels','retention']},
+  {id:'content', c:'growth', t:'内容营销',
+   d:'用有价值的内容把目标客户吸引过来，而不是砸广告。',
+   b:'逻辑：内容建立信任，信任带转化，成本比硬广低而且可积累。做法：选一个主渠道深耕（公众号、知乎、视频号都行），选题围绕客户真实问题，固定节奏更新，每篇内容埋一个明确的下一步（关注、私信、试用）。效果看阅读到成交的每一环，别只盯阅读量。',
+   p:['一个渠道做深，别全平台铺','选题从客户问题来，不从热点来','每篇内容都有明确的下一步动作'],
+   m:['阅读量高就是内容好','内容营销等于写公众号文章'],
+   r:['channels','positioning','conversion']},
+  {id:'network-effect', c:'growth', t:'网络效应',
+   d:'用户越多，产品对每个用户越有价值。',
+   b:'类型：直接网络效应（社交）、双边（平台撮合）、数据、基础设施。判断标准：你的产品是不是人越多越好用。是，增长能滚雪球；不是，就老老实实做获客和留存。别硬蹭：用户数量上去了但彼此无关，那不是网络效应。',
+   p:['先设计核心互动，再谈增长','冷启动最难，先找能带头的种子用户','网络效应要搭配留存，不然是漏斗'],
+   m:['用户多就等于有网络效应','先烧钱拉人，效应自己会长出来'],
+   r:['moat','virality','retention']},
+
+  // ===== 产品与迭代 =====
+  {id:'demand', c:'product', t:'需求洞察',
+   d:'分清楚「你以为的需求」和「真实的需求」。',
+   b:'真实需求的证据：用户已经在用替代方案（哪怕是很笨的手工方案）、愿意付钱、问题频繁且痛苦。验证工具：用户访谈、搜索数据、竞品评价、众筹预售。痛点强度排序：必须 > 想要 > 可有可无。',
+   p:['用「有没有替代方案」判断需求强弱','访谈问过去和实际行为，别问「你会买吗」','需求要落到具体人群和场景'],
+   m:['「我觉得大家需要」——你不是目标用户','只访谈身边朋友'],
+   r:['user-interview','market-research']},
+  {id:'user-interview', c:'product', t:'用户访谈',
+   d:'用结构化深度对话，理解用户真实的行为和动机。',
+   b:'技巧：问过去的事实（「上次你遇到 X 是怎么解决的」），别问假设（「你会用吗」）；多听少说；追问「为什么」追到第三层；不引导、不评判。访谈是找洞察，不是验证你的方案。',
+   p:['一次 30–45 分钟，访 5 人以上才谈得上模式','录音整理原文，别凭记忆','访谈和数据的结论矛盾时，以行为数据为准'],
+   m:['把访谈做成产品推销','把用户的客气话当需求'],
+   r:['demand','mvp']},
+  {id:'iteration', c:'product', t:'产品迭代',
+   d:'以周或月为节奏发布、测量、调整，让产品贴近真实需求。',
+   b:'节奏：小步发布（每周或每双周）、灰度小流量试、数据回看、复盘调整。功能取舍拿「核心假设」排序：能验证假设的先做，无关的砍掉。',
+   p:['迭代速度是早期竞争壁垒','每次发布有明确假设和指标','留一份「不做清单」，比做清单重要'],
+   m:['憋大招三个月一版','用户反馈全盘照做——有些反馈听听就好'],
+   r:['mvp','ab-test']},
+  {id:'data-driven', c:'product', t:'数据驱动决策',
+   d:'用行为数据代替感觉和资历做关键判断。',
+   b:'数据基建三件事：埋点（事件和属性）、报表（核心看板）、口径统一。决策分级：高成本决策（方向、架构）多数据加讨论；低成本决策快速试。防数据说谎：口径漂移、样本偏差、虚荣指标。',
+   p:['先定指标口径再埋点','看趋势和分组，别只看总量','北极星指标旁边配一个警惕指标'],
+   m:['数据只是报表，从来不看','用 DAU 掩盖留存崩了的事实'],
+   r:['ab-test','aarrr']},
+  {id:'ab-test', c:'product', t:'A/B 测试',
+   d:'同一时间给不同用户看不同版本，用数据决定去留。',
+   b:'适用：文案、价格、页面结构、算法策略这些可比较的场景。前提：样本量够（显著性）、同时段分流、单变量。A/B 的局限：只能优化已选变量的边际，替代不了战略判断。',
+   p:['每次只测一个变量','样本不够的结论是噪声','假设写在前，结论写在后','先小流量测，再全量上'],
+   m:['「昨天效果好」就当结论——没有对照组不算','不看显著性就上线'],
+   r:['iteration','data-driven']},
+  {id:'roadmap', c:'product', t:'产品路线图',
+   d:'把「下一步做什么、为什么」按优先级排出来。',
+   b:'路线图按「假设优先级」组织，不是功能堆砌：验证什么、服务谁、带来什么指标。形式：季度目标 + 月度里程碑 + 每周任务。它是沟通工具：对内对齐团队，对外讲给投资人听。',
+   p:['先写「问题」，再写「功能」','每个节点能解释「为什么现在做」','预留 20% 弹性处理突发'],
+   m:['把功能列表当路线图','承诺下季度交付，然后不断跳票'],
+   r:['okr','iteration']},
+  {id:'persona', c:'product', t:'用户画像',
+   d:'把目标用户具体到能替他们做产品决策。',
+   b:'维度：身份、场景、痛点、决策链、付费能力。别只写"25-35 岁、月入两万"——要写清楚"他在什么时刻想起你的产品、想解决什么、卡在哪一步"。画像不是一次定死的，是访谈出来的，也会过时。做功能取舍时问一句：这个画像里的人会用它吗？',
+   p:['画像服务于功能取舍，不服务于汇报','找 3-5 个代表用户深访，别自己编','定期更新，客户会变'],
+   m:['画像写得越细越像真的','用户画像等于用户调研报告'],
+   r:['customer-segment','user-interview']},
+  {id:'north-star', c:'product', t:'北极星指标',
+   d:'唯一能代表产品创造核心价值的指标，带团队往一个方向走。',
+   b:'特点：反映用户真实价值、能拆解成团队可执行的子指标。例子：内容产品看周阅读时长，SaaS 看活跃付费席位。选错了会带偏团队——注册量涨了但没人用，等于白做。配一个护栏指标（体验、质量类）防止指标做上去、产品垮掉。',
+   p:['北极星是价值指标，不是收入指标','能拆成子指标，团队才能执行','定期检验：指标涨了，用户体验好吗'],
+   m:['北极星指标就是 KPI','选个好看的数当北极星'],
+   r:['aarrr','retention','data-driven']},
+
+  // ===== 风险与退出 =====
+  {id:'pitfalls', c:'risk', t:'创业常见死因',
+   d:'高频失败模式速查：伪需求、现金流断裂、内讧、不合规。',
+   b:'行业统计里最常见的死因：没有市场需求（约四成量级）、烧光现金、团队问题、被竞品打败。对照自查：需求是不是真实付费需求？跑道够不够？团队能不能扛住最坏情况？',
+   p:['每月做一次「死亡清单」自查','用最小成本验证需求，再 All-in','合伙人内讧早发现早处理'],
+   m:['「我们不一样」——死因都是相似的','把失败归因于运气'],
+   r:['cash-crisis','cashflow']},
+  {id:'cash-crisis', c:'risk', t:'现金流断裂危机',
+   d:'账上现金撑不到下期工资和供应商付款的生死时刻。',
+   b:'应对顺序：1）立即盘点现金和未来 90 天刚性支出；2）降本，暂停非核心支出、暂缓招聘；3）增收，催收回款、加速收入；4）找钱，股东借款、过桥、紧急融资。最忌瞒着不说，硬撑到爆。',
+   p:['危机第一条：让利益相关方知情','降本是 CEO 第一时间该做的事','保住核心团队和现金，其他都可以等'],
+   m:['觉得开口融资丢人，拖到发不出工资','拿个人信用卡垫公司开支'],
+   r:['runway','burn-rate']},
+  {id:'cap-trap', c:'risk', t:'股权与条款陷阱',
+   d:'融资协议里那些让你「赢了估值、输了公司」的条款。',
+   b:'高危条款：一票否决权（投资人能否决日常经营）、优先清算权（退出时投资人先拿走几倍）、强制随售权（drag-along）、无过错回购（到期按本息回购）。审合同问三件事：最坏情况是什么？我能退出吗？到底谁说了算？',
+   p:['保护性条款可以给，日常经营权要守住','反稀释用加权平均，别用完全棘轮','请专业律师逐条解释'],
+   m:['只盯着估值金额','签字快，条款慢慢哭'],
+   r:['term-sheet','dilution']},
+  {id:'cofounder-split', c:'risk', t:'合伙人散伙',
+   d:'关系破裂引发的公司治理危机，处理不好公司就死。',
+   b:'散伙常见原因：贡献失衡、方向分歧、权力斗争、外部诱惑。预防靠协议：归属期（没做满收回）、回购定价机制（按什么价收回）、竞业与保密。处理原则：公司存续大于个人恩怨；谈判优先，法律是最后手段。',
+   p:['归属期是最重要的防散伙工具','回购价格提前约定：账面价、公允价或约定倍数','散伙要快刀斩乱麻，别拖'],
+   m:['「散伙就散伙，公司不要了」——清算也要花钱花时间','谈判时情绪压过利益'],
+   r:['shareholder-agreement','equity-incentive']},
+  {id:'exit-ma', c:'risk', t:'并购退出',
+   d:'被收购是常见退出路径：卖出公司，换现金或股权。',
+   b:'并购动因：大厂补能力、买团队、买用户、消除竞争。准备：数据干净、商业模式能解释、关键人留任条款。谈判要点：交易结构（现金/股票/业绩对赌）、竞业限制、交割条件。',
+   p:['并购从被注意到开始，保持行业存在感','业绩对赌（earnout）设现实目标','请投行或律师代理，别自己谈价'],
+   m:['「我们只做 IPO」——多数公司的终点是并购','临阵才准备数据，谈判很被动'],
+   r:['rounds','valuation']},
+  {id:'ipo', c:'risk', t:'IPO 上市',
+   d:'公司股票在公开市场发行——里程碑式的退出和再融资通道。',
+   b:'路径：A 股（主板/科创板/创业板）、港股、美股，各有财务、盈利或市值门槛。流程长（辅导、申报、问询、注册/聆讯），中介成本高。上市之后是另一个考场：财报公开、股价压力、合规义务。',
+   p:['上市是结果，不是目标','上市前想清楚为什么上：融资、退出还是品牌','辅导期财务合规要提前 2–3 年规范'],
+   m:['「上市等于终点」——上市只是换了考场','为上市造假，那是刑事风险'],
+   r:['exit-ma','legal-risk']},
+  {id:'shutdown', c:'risk', t:'止损与清算',
+   d:'判断该继续还是该停，然后体面退场。',
+   b:'止损信号：核心假设被证伪且没有 pivot 空间、连续多个验证周期失败、跑道不足且融资无望。停止不是失败，是把资源还给更值得的事。体面退场：结清工资和供应商、和投资人坦诚沟通、规范注销、给团队写推荐信。',
+   p:['提前写下止损线和触发条件，防止情感绑架','清算顺序：员工工资 → 税款 → 债务 → 股东','创业者的信誉是下一个项目的本金'],
+   m:['「都投了这么多了，再撑一下」——沉没成本不是理由','跑路失联，信誉全毁'],
+   r:['cash-crisis','founder-mind']},
+  {id:'personal-liability', c:'risk', t:'创始人个人连带风险',
+   d:'公司有限责任，是怎么一步步烧到创始人个人头上的。',
+   b:'常见引爆点：个人担保、公司账户和私人账户混用、抽逃出资、一人公司财产混同、对赌协议里的个人责任。保护动作：公私账彻底分开、不轻易签个人担保、注册资本按实际能力定、签任何合同先问"这要不要我个人担"。有限责任是法律给的，签了字就没了。',
+   p:['公私账分开，第一优先级','个人担保能拒就拒，拒绝不了设上限','签字前问一句：这要我个人担吗'],
+   m:['公司注册了就有有限责任','股东借款和分红是一回事'],
+   r:['legal-risk','cap-table','founder-mind']}
+];
+</script>
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+/* ---------- 图标库 ---------- */
+const ICONS = {
+  rocket:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10 14"/><path d="M21 3 14 21l-4-7-7-4z"/></svg>',
+  fund:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12v2"/></svg>',
+  cash:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>',
+  gavel:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6z"/><path d="M14 2v4h4"/><path d="M9 13h6M9 17h6"/></svg>',
+  team:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.9"/><path d="M17.2 13.8A6 6 0 0 1 21.5 20"/></svg>',
+  trend:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>',
+  pulse:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4 12L16 12h5"/></svg>',
+  guard:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 15.5h.01"/></svg>'
+};
+const I_CHECK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const I_ALERT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>';
+const I_ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+
+/* ---------- 状态与工具 ---------- */
+const state = {cat:'all', q:'', view:'home'};
+let toolsInitFlag = false, runwayChart = null, dilutionChart = null, roundsChart = null;
+const catById = id => KB_CATS.find(c=>c.id===id);
+const catName = id => { const c = catById(id); return c ? c.name : ''; };
+const entryById = id => KB_ENTRIES.find(e=>e.id===id);
+const catCount = cid => KB_ENTRIES.filter(e=>e.c===cid).length;
+
+/* ---------- 顶栏统计 ---------- */
+$('#stat-entries').textContent = KB_ENTRIES.length;
+$('#stat-cats').textContent = KB_CATS.length;
+
+/* ---------- 分类栏 ---------- */
+function renderCats(){
+  const list = [{id:'all', name:'全部主题'}].concat(KB_CATS);
+  $('#cat-rail').innerHTML = list.map(c=>{
+    const cnt = c.id==='all' ? KB_ENTRIES.length : catCount(c.id);
+    const ico = c.id==='all'
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>'
+      : ICONS[c.icon];
+    return '<button class="cat-btn'+(state.cat===c.id?' active':'')+'" data-cat="'+c.id+'" role="tab" aria-selected="'+(state.cat===c.id)+'">'+ico+'<span>'+c.name+'</span><span class="cnt">'+cnt+'</span></button>';
+  }).join('');
+}
+$('#cat-rail').addEventListener('click', ev=>{
+  const btn = ev.target.closest('.cat-btn'); if(!btn) return;
+  state.cat = btn.dataset.cat;
+  renderCats(); renderGrid();
+});
+
+/* ---------- 词条网格 ---------- */
+function filtered(){
+  const q = state.q.trim().toLowerCase();
+  const list = state.cat==='all' ? KB_ENTRIES.slice() : KB_ENTRIES.filter(e=>e.c===state.cat);
+  if(!q) return list;
+  return list.filter(e=>{
+    const hay = (e.t+' '+e.d+' '+e.b+' '+e.p.join(' ')+' '+e.m.join(' ')+' '+e.r.map(entryById).filter(Boolean).map(x=>x.t).join(' ')).toLowerCase();
+    return hay.indexOf(q) >= 0;
+  });
+}
+function renderGrid(){
+  const list = filtered();
+  const grid = $('#entry-grid');
+  $('#result-count').textContent = '共 ' + list.length + ' 条';
+  const catLabel = state.cat==='all' ? '全部词条' : catName(state.cat);
+  $('#grid-title').textContent = state.q.trim() ? catLabel + ' · “' + state.q.trim() + '”' : catLabel;
+  if(!list.length){
+    grid.innerHTML = '<div class="empty">'+I_ALERT+'<b>没有找到相关词条</b>换个关键词试试，或切回「全部主题」</div>';
+    return;
+  }
+  const seq = {};
+  grid.innerHTML = list.map(e=>{
+    seq[e.c] = (seq[e.c]||0)+1;
+    const no = String(seq[e.c]).padStart(2,'0');
+    return '<button class="entry-card" data-id="'+e.id+'">'
+      + '<span class="card-top"><span class="cat-chip">'+catName(e.c)+'</span><span class="no">No.'+no+'</span></span>'
+      + '<span class="card-title">'+e.t+'</span><span class="card-desc">'+e.d+'</span>'
+      + '<span class="arr">'+I_ARROW+'</span></button>';
+  }).join('');
+}
+$('#entry-grid').addEventListener('click', ev=>{
+  const card = ev.target.closest('.entry-card'); if(!card) return;
+  openModal(card.dataset.id);
+});
+
+/* ---------- 搜索 ---------- */
+let searchTimer;
+$('#search-input').addEventListener('input', ev=>{
+  state.q = ev.target.value;
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(renderGrid, 160);
+});
+$('#search-go').addEventListener('click', ()=>{
+  renderGrid();
+  $('#entry-grid').scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* ---------- 详情弹层 ---------- */
+function openModal(id){
+  const e = entryById(id); if(!e) return;
+  $('#modal-cat').textContent = catName(e.c);
+  $('#modal-title').textContent = e.t;
+  $('#modal-def').textContent = e.d;
+  $('#modal-body').textContent = e.b;
+  $('#modal-points').innerHTML = e.p.map(x=>'<li class="point">'+I_CHECK+'<span>'+x+'</span></li>').join('');
+  $('#modal-myths').innerHTML = e.m.map(x=>'<li class="myth">'+I_ALERT+'<span>'+x+'</span></li>').join('');
+  $('#modal-rel').innerHTML = (e.r||[]).map(rid=>{
+    const r = entryById(rid);
+    return r ? '<button data-rel="'+rid+'">'+r.t+'</button>' : '';
+  }).join('');
+  $('#modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  $('#modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+$('#modal-close').addEventListener('click', closeModal);
+$('#modal').addEventListener('click', ev=>{
+  if(ev.target === $('#modal')) closeModal();
+  const rel = ev.target.closest('[data-rel]');
+  if(rel) openModal(rel.dataset.rel);
+});
+document.addEventListener('keydown', ev=>{ if(ev.key==='Escape') closeModal(); });
+
+/* ---------- 路由 ---------- */
+function route(){
+  const h = location.hash || '#/home';
+  const view = h.indexOf('tools') >= 0 ? 'tools' : 'home';
+  state.view = view;
+  $('#view-home').classList.toggle('active', view==='home');
+  $('#view-tools').classList.toggle('active', view==='tools');
+  $$('.nav a').forEach(a=>a.classList.toggle('active', a.dataset.view===view));
+  if(view==='tools' && !toolsInitFlag) initTools();
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', route);
+
+renderCats();
+renderGrid();
+route();
+/* ============ 工具箱逻辑 ============ */
+const echartsOk = () => typeof window.echarts !== 'undefined';
+const fmtNum = n => Math.round(n).toLocaleString('zh-CN');
+const ECH_TEXT = {fontFamily:'"Noto Sans SC","PingFang SC",sans-serif', color:'#8D97A5'};
+const ECH_GRID = {left:12, right:26, top:44, bottom:8, containLabel:true};
+
+function initTools(){
+  if(toolsInitFlag) return;
+  toolsInitFlag = true;
+
+  /* ---- 现金跑道计算器 ---- */
+  const rCash = $('#r-cash-range'), rSpend = $('#r-spend-range'), rIncome = $('#r-income-range');
+  function updateRunway(){
+    const cash = +rCash.value*10000, spend = +rSpend.value*10000, income = +rIncome.value*10000;
+    const net = spend - income;
+    $('#r-cash').textContent = fmtNum(+rCash.value) + ' 万';
+    $('#r-spend').textContent = fmtNum(+rSpend.value) + ' 万';
+    $('#r-income').textContent = fmtNum(+rIncome.value) + ' 万';
+    $('#r-burn').textContent = fmtNum(net/10000) + ' 万';
+    const months = net>0 ? Math.floor(cash/net) : -1;
+    $('#r-runway').textContent = net>0 ? months + ' 个月' : '有结余，安全';
+    const st = net<=0 ? '安全' : (months>=12 ? '安全' : (months>=9 ? '需关注' : '立即行动'));
+    $('#r-alert').textContent = st;
+    if(!echartsOk()){ $('#runway-fallback').style.display='block'; return; }
+    const horizon = net>0 ? Math.min(months+6, 48) : 24;
+    const xs = Array.from({length:horizon+1}, (_,i)=>i);
+    const ys = xs.map(m=>Math.max(0, Math.round(cash - net*m)));
+    if(!runwayChart) runwayChart = echarts.init($('#runway-chart'));
+    runwayChart.setOption({
+      textStyle:ECH_TEXT, grid:ECH_GRID, animationDuration:360,
+      tooltip:{trigger:'axis', confine:true, valueFormatter:v=>'¥'+fmtNum(+v/10000)+' 万'},
+      legend:{data:['现金余额'], top:4, icon:'circle', itemWidth:10, itemHeight:10, textStyle:{color:'#8D97A5'}},
+      xAxis:{type:'category', data:xs.map(String), name:'月', nameLocation:'middle', nameGap:26, nameTextStyle:{color:'#5C6775', fontSize:12}, axisLine:{lineStyle:{color:'#26303E'}}, axisLabel:{color:'#8D97A5'}},
+      yAxis:{type:'value', name:'现金（万）', nameTextStyle:{color:'#5C6775', fontSize:12}, splitLine:{lineStyle:{color:'#222B38'}}, axisLabel:{color:'#8D97A5', formatter:v=>fmtNum(v/10000)}},
+      series:[{
+        name:'现金余额', type:'line', showSymbol:false, data:ys,
+        lineStyle:{width:2.4, color:'#C9A45C'}, itemStyle:{color:'#C9A45C'},
+        areaStyle:{color:'rgba(201,164,92,.10)'},
+        markLine: net>0 ? {silent:true, symbol:'none', lineStyle:{color:'#C96A5C', type:'dashed'}, label:{formatter:'现金耗尽', color:'#C96A5C', fontSize:12, position:'end'}, data:[{xAxis: months}]} : undefined
+      }]
+    });
+  }
+  [rCash, rSpend, rIncome].forEach(r=>r.addEventListener('input', updateRunway));
+  updateRunway();
+
+  /* ---- 股权稀释计算器 ---- */
+  const dStake = $('#d-stake-range'), dPre = $('#d-pre-range'), dRaise = $('#d-raise-range'), dPool = $('#d-pool-range');
+  function updateDilution(){
+    const stake = +dStake.value/100, pre = +dPre.value*10000, raise = +dRaise.value*10000, pool = +dPool.value/100;
+    $('#d-stake').textContent = (+dStake.value) + '%';
+    $('#d-pre').textContent = fmtNum(+dPre.value) + ' 万';
+    $('#d-raise').textContent = fmtNum(+dRaise.value) + ' 万';
+    $('#d-pool').textContent = (+dPool.value) + '%';
+    const post = pre + raise;
+    const newStake = raise/post;
+    const founder = Math.max(0, stake * (1-newStake-pool));
+    const others = Math.max(0, (1-stake) * (1-newStake-pool));
+    $('#d-stakeout').textContent = (newStake*100).toFixed(1) + '%';
+    $('#d-post').textContent = fmtNum(post/10000) + ' 万';
+    $('#d-founder').textContent = (founder*100).toFixed(1) + '%';
+    if(!echartsOk()){ $('#dilution-fallback').style.display='block'; return; }
+    if(!dilutionChart) dilutionChart = echarts.init($('#dilution-chart'));
+    const pct = v => v>0.5 ? (v*100).toFixed(0)+'%' : '';
+    dilutionChart.setOption({
+      textStyle:ECH_TEXT, grid:ECH_GRID, animationDuration:360,
+      tooltip:{trigger:'item', confine:true, formatter:p=>p.seriesName+'：'+(p.value*100).toFixed(1)+'%'},
+      legend:{top:4, icon:'circle', itemWidth:10, itemHeight:10, textStyle:{color:'#8D97A5'}},
+      xAxis:{type:'value', max:100, axisLabel:{formatter:'{value}%'}, splitLine:{lineStyle:{color:'#222B38'}}},
+      yAxis:{type:'category', data:['融资前','融资后'], axisLine:{lineStyle:{color:'#26303E'}}, axisTick:{show:false}, axisLabel:{color:'#E9E6DE'}},
+      series:[
+        {name:'新投资人', type:'bar', stack:'t', barWidth:30, data:[0, newStake], itemStyle:{color:'#8D97A5'}, label:{show:true, position:'inside', color:'#0E1116', formatter:p=>pct(p.value)}},
+        {name:'期权池', type:'bar', stack:'t', data:[0, pool], itemStyle:{color:'#6FA98B'}, label:{show:true, position:'inside', color:'#0E1116', formatter:p=>pct(p.value)}},
+        {name:'其他原股东', type:'bar', stack:'t', data:[1-stake, others], itemStyle:{color:'#7C9FBF'}, label:{show:true, position:'inside', color:'#0E1116', formatter:p=>pct(p.value)}},
+        {name:'创始人', type:'bar', stack:'t', data:[stake, founder], itemStyle:{color:'#C9A45C'}, label:{show:true, position:'inside', color:'#0E1116', formatter:p=>pct(p.value)}}
+      ]
+    });
+  }
+  [dStake, dPre, dRaise, dPool].forEach(r=>r.addEventListener('input', updateDilution));
+  updateDilution();
+
+  /* ---- 融资轮次参考 ---- */
+  const ROUNDS = {
+    seed:{name:'种子轮', stakeMin:5, stakeMax:15, s:'验证想法与最小原型，投资人主要赌创始人与赛道。'},
+    angel:{name:'天使轮', stakeMin:10, stakeMax:20, s:'产品上线与早期用户数据，投资人看 PMF 迹象与团队执行力。'},
+    a:{name:'A 轮', stakeMin:15, stakeMax:25, s:'产品-市场匹配与收入增长，投资人看单位经济与留存曲线。'},
+    b:{name:'B 轮', stakeMin:10, stakeMax:20, s:'规模化复制与团队搭建，投资人看运营效率与市场地位。'},
+    c:{name:'C 轮+', stakeMin:5, stakeMax:15, s:'扩张、并购或 IPO 准备，投资人看盈利能力与护城河。'}
+  };
+  const roundKeys = ['seed','angel','a','b','c'];
+  let curRound = 'seed';
+  function renderRoundDesc(){
+    const r = ROUNDS[curRound];
+    $('#profile-desc').innerHTML = '<b>'+r.name+'</b>：'+r.s;
+  }
+  function drawRounds(){
+    if(!echartsOk()){ $('#rounds-fallback').style.display='block'; return; }
+    if(!roundsChart) roundsChart = echarts.init($('#rounds-chart'));
+    const mins = roundKeys.map(k=>ROUNDS[k].stakeMin);
+    const maxs = roundKeys.map(k=>ROUNDS[k].stakeMax);
+    roundsChart.setOption({
+      textStyle:ECH_TEXT, grid:ECH_GRID, animationDuration:360,
+      tooltip:{trigger:'item', confine:true, formatter:p=>{
+        const i = p.dataIndex;
+        return ROUNDS[roundKeys[i]].name+'：典型出让 '+mins[i]+'% – '+maxs[i]+'%';
+      }},
+      xAxis:{type:'value', max:30, name:'出让比例（%）', nameLocation:'middle', nameGap:30, nameTextStyle:{color:'#5C6775', fontSize:12}, axisLabel:{formatter:'{value}%'}, splitLine:{lineStyle:{color:'#222B38'}}},
+      yAxis:{type:'category', data:roundKeys.map(k=>ROUNDS[k].name), axisLine:{lineStyle:{color:'#26303E'}}, axisTick:{show:false}, axisLabel:{color:'#E9E6DE'}},
+      series:[
+        {name:'区间起点', type:'bar', stack:'r', barWidth:24, data:mins, itemStyle:{color:'rgba(0,0,0,0)'}, silent:true, tooltip:{show:false}},
+        {name:'典型区间', type:'bar', stack:'r', data:maxs.map((m,i)=>m-mins[i]), itemStyle:{color:'#C9A45C'}, label:{show:true, position:'right', color:'#C9A45C', fontSize:12, formatter:p=>mins[p.dataIndex]+'% – '+maxs[p.dataIndex]+'%'}}
+      ]
+    });
+  }
+  $$('.profile-btn').forEach(b=>b.addEventListener('click', ()=>{
+    curRound = b.dataset.profile;
+    $$('.profile-btn').forEach(x=>x.classList.toggle('active', x===b));
+    renderRoundDesc();
+  }));
+  renderRoundDesc();
+  drawRounds();
+
+  /* ---- 窗口缩放自适应 ---- */
+  window.addEventListener('resize', ()=>{
+    if(runwayChart) runwayChart.resize();
+    if(dilutionChart) dilutionChart.resize();
+    if(roundsChart) roundsChart.resize();
+  });
+}
+})();
+</script>
+</body>
+</html>
